@@ -10,7 +10,7 @@ import { GiHamburgerMenu } from 'react-icons/gi'
 import { FaTimes } from 'react-icons/fa'
 import Button from './Button'
 import styled from 'styled-components'
-import { mobile, tablet } from '@/components/responsiveness'
+import { mobile, tablet } from './responsiveness'
 
 const Container = styled.div`
   display: flex;

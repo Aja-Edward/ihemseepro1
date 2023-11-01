@@ -2,7 +2,7 @@
 
 import styled from 'styled-components'
 
-import { mobile, tablet } from '@/components/responsiveness'
+import { mobile, tablet } from './myresponsiveness'
 
 const Container = styled.div`
   height: 50vh;

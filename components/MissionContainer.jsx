@@ -1,7 +1,7 @@
 'use client'
 
 import styled from 'styled-components'
-import { mobile, tablet } from '@/components/responsiveness'
+import { mobile, tablet } from './responsiveness'
 
 const MissionContainer = ({
   title,

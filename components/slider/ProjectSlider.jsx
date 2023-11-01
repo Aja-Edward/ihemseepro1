@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
 import projectData from './projectSliderData'
-import { mobile, tablet } from '@/components/responsiveness'
+import { mobile, tablet } from './sliderresponsiveness'
 
 const ProjectSlider = () => {
   const [currentProject, setCurrentProject] = useState(0)

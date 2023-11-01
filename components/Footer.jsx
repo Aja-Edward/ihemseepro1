@@ -9,7 +9,7 @@ import { FaFacebook } from 'react-icons/fa'
 import { AiOutlineInstagram } from 'react-icons/ai'
 // import footerimage from '@/public/assets/images/footer-bg.png'
 import Newsletter from './Newsletter'
-import { mobile, tablet } from '@/components/responsiveness'
+import { mobile, tablet } from './responsiveness'
 
 const Container = styled.div`
   padding: 0 0 50px 0;

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import styled from 'styled-components'
 import MultiCarousel from './MultiCarousel'
 import Banner from './banner/Banner'
-import { mobile, tablet } from '@/components/responsiveness'
+import { mobile, tablet } from './responsiveness'
 
 const Contact = () => {
   const initialValues = {

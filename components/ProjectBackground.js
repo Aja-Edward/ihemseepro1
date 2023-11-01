@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { mobile, tablet } from '@/components/responsiveness'
+import { mobile, tablet } from './responsiveness'
 
 const ProjectBackground = ({ videoSource }) => {
   const Container = styled.div`

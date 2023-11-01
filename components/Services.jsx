@@ -12,7 +12,7 @@ import { services2ndtab } from './data'
 import { services3rdtab } from './data'
 import { ProjectCard } from './ProjectCard'
 import Banner from './banner/Banner'
-import { mobile, tablet } from '@/components/responsiveness'
+import { mobile, tablet } from './responsiveness'
 
 const MyContainer = styled.div`
   width: 100%;
