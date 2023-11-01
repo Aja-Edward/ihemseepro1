@@ -14,6 +14,5 @@ export default function StyledJsxRegistry({ children }) {
     jsxStyleRegistry.flush()
     return <>{styles}</>
   })
-
   return <StyleRegistry registry={jsxStyleRegistry}>{children}</StyleRegistry>
 }

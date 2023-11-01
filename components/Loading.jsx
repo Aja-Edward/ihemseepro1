@@ -1,7 +1,6 @@
 'use client'
 
 import styled from 'styled-components'
-// import loading from '../assets/images/loading.gif'
 
 const Loading = () => {
   return (

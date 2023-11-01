@@ -9,7 +9,7 @@ import meter2 from '@/public/assets/images/meter2.svg'
 import meter3 from '@/public/assets/images/meter3.svg'
 import colorSharp from '@/public/assets/images/color-sharp.png'
 import dinninglightproject from '@/public/assets/images/dinninglightproject.jpg'
-import { mobile, tablet } from './Responsiveness'
+import { mobile, tablet } from './responsiveness'
 
 const Container = styled.div`
   position: relative;
@@ -76,8 +76,6 @@ const SmallTitle = styled.h5`
   font-size: 20px;
   font-weight: 500;
 `
-
-
 
 const MultiCarousel = () => {
   const responsive = {

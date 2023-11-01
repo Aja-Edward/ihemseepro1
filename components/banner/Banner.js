@@ -1,8 +1,8 @@
-import React from 'react'
+'use client'
+
 import styled from 'styled-components'
-// import colorSharp2 from '../../assets/images/color-sharp2.png'
+
 import { mobile, tablet } from '@/components/responsiveness'
-// import footerbg from '../../assets/images/footer-bg.png'
 
 const Container = styled.div`
   height: 50vh;

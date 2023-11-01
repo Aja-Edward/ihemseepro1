@@ -6,13 +6,11 @@ import { GrLinkedinOption } from 'react-icons/gr'
 import { RiWhatsappFill } from 'react-icons/ri'
 import { FaFacebook } from 'react-icons/fa'
 import { AiOutlineInstagram } from 'react-icons/ai'
-import { BsColumns, BsFillArrowRightCircleFill } from 'react-icons/bs'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { FaTimes } from 'react-icons/fa'
 import Button from './Button'
 import styled from 'styled-components'
-// import logo from '/assets/images/adioleandsonslogo.png'
-import { mobile, tablet } from '@/components/Responsiveness'
+import { mobile, tablet } from '@/components/responsiveness'
 
 const Container = styled.div`
   display: flex;
@@ -293,9 +291,9 @@ const Navbar = () => {
             <Links>Home</Links>
           </Connect>
           <Connect
-            href={'/services'}
-            className={activeLink === 'services' ? 'active' : ''}
-            onClick={() => onUpdateActiveLink('services')}
+            href={'/servicespage'}
+            className={activeLink === 'servicespage' ? 'active' : ''}
+            onClick={() => onUpdateActiveLink('servicespage')}
           >
             <Links>Services</Links>
           </Connect>

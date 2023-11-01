@@ -3,7 +3,7 @@
 import styled from 'styled-components'
 import Link from 'next/link'
 import { BsFillArrowRightCircleFill } from 'react-icons/bs'
-import { mobile, tablet } from '@/components/Responsiveness'
+import { mobile, tablet } from '@/components/responsiveness'
 
 const StyledLink = styled(Link)`
   width: 200px;

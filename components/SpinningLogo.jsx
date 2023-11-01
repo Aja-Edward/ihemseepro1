@@ -1,5 +1,5 @@
 'use client'
-// import logo from '../assets/images/adiole.png'
+
 import Image from 'next/image'
 import styled from 'styled-components'
 

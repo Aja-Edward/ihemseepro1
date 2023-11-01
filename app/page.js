@@ -7,7 +7,7 @@ import Button from '@/components/Button'
 import Overlay from '@/components/Overlay'
 import MultiCarousel from '@/components/MultiCarousel'
 import Mycards from '@/components/Mycards'
-import { mobile, tablet } from '@/components/Responsiveness'
+import { mobile, tablet } from '@/components/responsiveness'
 
 const Container = styled.div`
   background-color: #2e3234;

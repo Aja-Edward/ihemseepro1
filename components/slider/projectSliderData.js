@@ -1,9 +1,4 @@
-import shoprightproject from '@/public/assets/images/shoperite.jpg'
-import airconditionerproject from '@/public/assets/images/airconditionerproject.png'
-import dinninglightproject from '@/public/assets/images/dinninglightproject.jpg'
-import lightupthehome from '@/public/assets/images/lightupthehome.jpg'
-import poultry5 from '@/public/assets/images/poultry5.jpg'
-import solar2 from '@/public/assets/images/solar2.jpg'
+
 
 const projectData = [
   {

@@ -24,9 +24,11 @@ export default function RootLayout({ children }) {
       <body className={roboto.className}>
         <link rel='icon' href='/favicon.ico' sizes='any' />
         <main className='app'>
-          <Navbar />
-          <StyledJsxRegistry>{children}</StyledJsxRegistry>
-          <Footer />
+          <StyledJsxRegistry>
+            <Navbar />
+            {children}
+            <Footer />
+          </StyledJsxRegistry>
         </main>
       </body>
     </html>

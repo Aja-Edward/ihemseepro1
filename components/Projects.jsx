@@ -2,12 +2,10 @@
 
 import styled from 'styled-components'
 import ProjectBackground from './ProjectBackground'
-import SpinningLogo from './SpinningLogo'
 import Mycards from './Mycards'
 import Overlay from './Overlay'
 import ProjectSlider from './slider/ProjectSlider'
 import Banner from './banner/Banner'
-// import projectimage from '@/public/assets/images/meter1.svg'
 import { mobile, tablet } from './responsiveness'
 
 const Container = styled.div`
