@@ -4,11 +4,7 @@ import styled from 'styled-components'
 import Carousel from 'react-multi-carousel'
 import Image from 'next/image'
 import 'react-multi-carousel/lib/styles.css'
-import meter1 from '@/public/assets/images/meter1.svg'
-import meter2 from '@/public/assets/images/meter2.svg'
-import meter3 from '@/public/assets/images/meter3.svg'
-import colorSharp from '@/public/assets/images/color-sharp.png'
-import dinninglightproject from '@/public/assets/images/dinninglightproject.jpg'
+import dinninglightproject from '@public/assets/images/dinninglightproject.jpg'
 import { mobile, tablet } from './responsiveness'
 
 const Container = styled.div`
@@ -101,7 +97,7 @@ const MultiCarousel = () => {
   return (
     <Container className='skill'>
       <Image
-        src={colorSharp}
+        src={'/assets/images/color-sharp.png'}
         width={400}
         height={400}
         alt='left background image'
@@ -122,12 +118,17 @@ const MultiCarousel = () => {
           className='skill-slider'
         >
           <CarouselItem>
-            <Image src={meter1} alt='adieles photo' width={100} height={100} />
+            <Image
+              src={'/assets/images/meter1.svg'}
+              alt='adieles photo'
+              width={100}
+              height={100}
+            />
             <SmallTitle> Solar Expert</SmallTitle>
           </CarouselItem>
           <CarouselItem>
             <Image
-              src={meter2}
+              src={'/assets/images/meter2.svg'}
               alt='wiring the house'
               width={100}
               height={100}
@@ -136,7 +137,7 @@ const MultiCarousel = () => {
           </CarouselItem>
           <CarouselItem>
             <Image
-              src={meter3}
+              src={'/assets/images/meter3.svg'}
               alt='the best inverter battrey'
               width={100}
               height={100}
@@ -145,7 +146,7 @@ const MultiCarousel = () => {
           </CarouselItem>
           <CarouselItem>
             <Image
-              src={meter2}
+              src={'/assets/images/meter2.svg'}
               alt='the best inverter battrey'
               width={100}
               height={100}
@@ -156,7 +157,7 @@ const MultiCarousel = () => {
             <Image
               width={100}
               height={100}
-              src={meter3}
+              src={'/assets/images/meter3.svg'}
               alt='the best inverter battrey'
             />
             <SmallTitle>Solar battery repair</SmallTitle>

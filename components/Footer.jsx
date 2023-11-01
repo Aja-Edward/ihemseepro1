@@ -1,13 +1,11 @@
 'use client'
 
 import styled from 'styled-components'
-import MailchimpForm from './MailchimpForm'
-// import logo from '../assets/images/adioleandsonslogo.png'
 import { GrLinkedinOption } from 'react-icons/gr'
 import { RiWhatsappFill } from 'react-icons/ri'
 import { FaFacebook } from 'react-icons/fa'
 import { AiOutlineInstagram } from 'react-icons/ai'
-// import footerimage from '@/public/assets/images/footer-bg.png'
+
 import Newsletter from './Newsletter'
 import { mobile, tablet } from './responsiveness'
 
