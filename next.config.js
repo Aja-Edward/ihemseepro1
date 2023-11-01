@@ -1,8 +1,13 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  compiler: {
-    styledComponents: true,
-  },
-}
+const { withPlausibleProxy } = require('next-plausible')
 
-module.exports = nextConfig
+module.exports = withPlausibleProxy()({
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback = {
+        fs: false,
+        module: false,
+      }
+    }
+    return config
+  },
+})
