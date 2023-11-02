@@ -22,13 +22,6 @@ const Contact = () => {
   const [loading, setLoading] = useState(false)
   const [isClient, setIsClient] = useState(false)
 
-  const [firstNameError, setFirstNameError] = useState('')
-  const [lastNameError, setLastNameError] = useState('')
-  const [emailError, setEmailError] = useState('')
-
-  const [phoneError, setPhoneError] = useState()
-  const [messageError, setMessageError] = useState('')
-
   const router = useRouter()
 
   console.log(loading)
@@ -87,138 +80,134 @@ const Contact = () => {
 
   return (
     <Container id='contacts'>
-      {isClient ? (
-        <div>"This is never prerendered"</div>
-      ) : (
-        <>
-          <Banner
-            imagesource={'assets/images/contactus2.png'}
-            title='Contact Us'
-            content='You can reach us via social media, phone call, emial or just by dropping a message in our content form below'
-          />
-          <Wrapper>
-            <ImageContainer>
-              <Image
-                src={'assets/images/contact-img.svg'}
-                alt='the contact image'
+      <>
+        <Banner
+          imagesource={'assets/images/contactus2.png'}
+          title='Contact Us'
+          content='You can reach us via social media, phone call, emial or just by dropping a message in our content form below'
+        />
+        <Wrapper>
+          <ImageContainer>
+            <Image
+              src={'assets/images/contact-img.svg'}
+              alt='the contact image'
+            />
+          </ImageContainer>
+          <FormContainer>
+            <FormTitle>Get In Touch</FormTitle>
+            <ContactForm onSubmit={onSubmit}>
+              <Input
+                type='text'
+                value={formValues.firstName}
+                name='firstName'
+                placeholder='First Name'
+                onChange={handleChange}
+                onBlur={() => handleInputBlur('firstName')}
+                className={
+                  touched.firstName && !formValues.firstName
+                    ? 'isInvalidInput'
+                    : 'isValidInput'
+                }
               />
-            </ImageContainer>
-            <FormContainer>
-              <FormTitle>Get In Touch</FormTitle>
-              <ContactForm onSubmit={onSubmit}>
-                <Input
-                  type='text'
-                  value={formValues.firstName}
-                  name='firstName'
-                  placeholder='First Name'
+
+              <Input
+                type='text'
+                value={formValues.lastName}
+                name='lastName'
+                placeholder='Last Name'
+                onChange={handleChange}
+                onBlur={() => handleInputBlur('lastName')}
+                className={
+                  touched.lastName && !formValues.lastName
+                    ? 'isInvalidInput'
+                    : 'isValidInput'
+                }
+              />
+
+              <Input
+                type='email'
+                value={formValues.email}
+                name='email'
+                placeholder='Email Address'
+                onChange={handleChange}
+                onBlur={() => handleInputBlur('email')}
+                className={
+                  touched.email && !formValues.email
+                    ? 'isInvalidInput'
+                    : 'isValidInput'
+                }
+              />
+
+              <Input
+                type='text'
+                value={formValues.subject}
+                placeholder='Subject'
+                name='subject'
+                onChange={handleChange}
+                onBlur={() => handleInputBlur('subject')}
+                className={
+                  touched.subject && !formValues.subject
+                    ? 'isInvalidInput'
+                    : 'isValidInput'
+                }
+              />
+
+              <PhoneInputContainer>
+                <NumberInput
+                  type='number'
+                  value={formValues.phone}
+                  placeholder='Phone No'
+                  name='phone'
                   onChange={handleChange}
-                  onBlur={() => handleInputBlur('firstName')}
+                  onBlur={() => handleInputBlur('phone')}
                   className={
-                    touched.firstName && !formValues.firstName
+                    touched.phone && !formValues.phone
                       ? 'isInvalidInput'
                       : 'isValidInput'
                   }
                 />
+              </PhoneInputContainer>
 
-                <Input
-                  type='text'
-                  value={formValues.lastName}
-                  name='lastName'
-                  placeholder='Last Name'
-                  onChange={handleChange}
-                  onBlur={() => handleInputBlur('lastName')}
-                  className={
-                    touched.lastName && !formValues.lastName
-                      ? 'isInvalidInput'
-                      : 'isValidInput'
-                  }
-                />
+              <TextArea
+                row='8'
+                col='6'
+                value={formValues.message}
+                name='message'
+                placeholder='Message'
+                onChange={handleChange}
+                // onBlur={() => handleInputBlur('message')}
+                className={
+                  touched.message && !formValues.message
+                    ? 'isInvalidInput'
+                    : 'isValidInput'
+                }
+              ></TextArea>
 
-                <Input
-                  type='email'
-                  value={formValues.email}
-                  name='email'
-                  placeholder='Email Address'
-                  onChange={handleChange}
-                  onBlur={() => handleInputBlur('email')}
-                  className={
-                    touched.email && !formValues.email
-                      ? 'isInvalidInput'
-                      : 'isValidInput'
-                  }
-                />
-
-                <Input
-                  type='text'
-                  value={formValues.subject}
-                  placeholder='Subject'
-                  name='subject'
-                  onChange={handleChange}
-                  onBlur={() => handleInputBlur('subject')}
-                  className={
-                    touched.subject && !formValues.subject
-                      ? 'isInvalidInput'
-                      : 'isValidInput'
-                  }
-                />
-
-                <PhoneInputContainer>
-                  <NumberInput
-                    type='number'
-                    value={formValues.phone}
-                    placeholder='Phone No'
-                    name='phone'
-                    onChange={handleChange}
-                    onBlur={() => handleInputBlur('phone')}
-                    className={
-                      touched.phone && !formValues.phone
-                        ? 'isInvalidInput'
-                        : 'isValidInput'
-                    }
-                  />
-                </PhoneInputContainer>
-
-                <TextArea
-                  row='8'
-                  col='6'
-                  value={formValues.message}
-                  name='message'
-                  placeholder='Message'
-                  onChange={handleChange}
-                  // onBlur={() => handleInputBlur('message')}
-                  className={
-                    touched.message && !formValues.message
-                      ? 'isInvalidInput'
-                      : 'isValidInput'
-                  }
-                ></TextArea>
-
-                <SubmitButton
-                  disabled={
-                    !formValues.firstName ||
-                    !formValues.lastName ||
-                    !formValues.email ||
-                    !formValues.subject
-                  }
-                >
-                  {loading ? (
-                    <LoadingImage>
-                      <ImageLoading
-                        src='assets/images/loading.gif'
-                        alt='the loading gif'
-                      />{' '}
-                      Sending...
-                    </LoadingImage>
-                  ) : (
-                    'Send'
-                  )}
-                </SubmitButton>
-              </ContactForm>
-            </FormContainer>
-          </Wrapper>
-          <MultiCarousel />
-        </>
-      )}
+              <SubmitButton
+                disabled={
+                  !formValues.firstName ||
+                  !formValues.lastName ||
+                  !formValues.email ||
+                  !formValues.subject
+                }
+              >
+                {loading ? (
+                  <LoadingImage>
+                    <ImageLoading
+                      src='assets/images/loading.gif'
+                      alt='the loading gif'
+                    />{' '}
+                    Sending...
+                  </LoadingImage>
+                ) : (
+                  'Send'
+                )}
+              </SubmitButton>
+            </ContactForm>
+          </FormContainer>
+        </Wrapper>
+        <MultiCarousel />
+      </>
     </Container>
   )
 }
