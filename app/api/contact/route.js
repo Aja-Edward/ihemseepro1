@@ -1,5 +1,4 @@
-import { transporter, mailOptions } from '@/app/config/nodemailer'
-import adiolelogo from '@/app/adioleandsonslogo.png'
+import { transporter, mailOptions } from '@/app/myconfig/nodemailer'
 
 export const GET = async (req, res) => {
   return new Response('Hi, my name is Aja Edward')
