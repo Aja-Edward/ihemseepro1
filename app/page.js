@@ -15,6 +15,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  height: fit-content;
   color: #ffffff;
   justify-content: center;
   padding-top: 100px;
@@ -93,8 +94,23 @@ const Text = styled.div`
     textAlign: 'center',
   })};
 `
-const Span = styled.span``
-const Small = styled.span``
+const ButtonContainer = styled.div`
+  Button {
+    width: 100%;
+  }
+  ${mobile({
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: '0 auto',
+  })}
+`
+const Small = styled.span`
+  ${mobile({
+    fontSize: '1.5rem',
+  })}
+`
 const Content = styled.p`
   width: 80%;
   text-align: justify;
@@ -102,13 +118,14 @@ const Content = styled.p`
   ${mobile({
     width: '100%',
     textAlign: 'center',
-    fontSize: '1.8rem',
-    marginTop: '15px',
+    fontSize: '1rem',
+    marginTop: '2px',
+    marginBottom: '5px',
   })}
   ${tablet({
     width: '100%',
     textAlign: 'center',
-    fontSize: '1.8rem',
+    fontSize: '1.1rem',
     marginTop: '15px',
   })};
 `
@@ -120,7 +137,7 @@ const ImageContainer = styled.div`
   z-index: 3;
   ${mobile({
     display: 'flex',
-    height: '70vh',
+    height: '50vh',
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
@@ -151,17 +168,19 @@ const MyImage = styled.img`
 const Image = styled.img`
   height: 100%;
   animation: updown 3s linear infinite;
-  ${`@keyframes updown`} {
-    & 0% {
+
+  @keyframes updown {
+    0% {
       transform: translateY(-20px);
     }
-    & 50% {
+    50% {
       transform: translateY(20px);
     }
-    & 100% {
+    100% {
       transform: translateY(-20px);
     }
   }
+
   ${mobile({
     height: '90%',
   })}
@@ -234,12 +253,14 @@ export default function HomePage() {
           <Content>
             Empowering homes and businesses with reliable electrical and
             electronic solutions, ihemseepro is your trusted partner for
-            seamless installations, prompt repairs, and comprehensive services.
-            With a focus on quality craftsmanship and customer satisfaction, we
-            ensure efficient and sustainable solutions for all your electrical
-            and electronic needs.
+            seamless installations, repairs, and prompt services. With a focus
+            on quality craftsmanship and customer satisfaction, we ensure
+            efficient and sustainable solutions for all your electrical and
+            electronic needs.
           </Content>
-          <Button text='Connect here' />
+          <ButtonContainer>
+            <Button text='Connect here' style={{ width: '100%' }} />
+          </ButtonContainer>
         </Text>
         <ImageContainer>
           <Image src={'/assets/images/bulb.png'} alt='ihems bulb' />

@@ -52,17 +52,21 @@ const Wrapper = styled.div`
   })}
 `
 const LogoContainer = styled.div`
-  flex: 0.5;
+  flex: 1;
+  padding-left: 20px;
   ${mobile({ display: 'none' })}
   ${tablet({ display: 'none' })}
 `
 const LogoImage = styled.div``
 
 const Image = styled.img`
-  width: 26%;
+  width: 20%;
 `
 const FormContainer = styled.div`
-  flex: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
 `
 
 const Socials = styled.div`
@@ -70,6 +74,8 @@ const Socials = styled.div`
   justify-content: flex-end;
   color: #ffffff;
   font-size: 1.4rem;
+
+  flex: 1;
   ${mobile({
     justifyContent: 'center',
     width: '100%',
@@ -145,11 +151,12 @@ const Tel = styled.p`
   width: 100%;
   display: flex;
 `
+
 const Email = styled.p`
   width: 100%;
   display: flex;
 `
-const Small = styled.div`
+const Small = styled.span`
   padding: 4px 5px;
   width: 70px;
   border: none;
@@ -172,12 +179,13 @@ const Small = styled.div`
 `
 
 const ContactInfoContainer = styled.div`
+  flex: 0.5;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: start;
   padding: 10px 50px;
-  flex: 0.5;
+
   ${mobile({})}
   ${tablet({})}
 `
@@ -211,7 +219,7 @@ const Footer = () => {
             </Tel>
             <Email>
               <Small> Email:</Small>
-              ajaedward750@gmail.com
+              ihemseepro@gmail.com
             </Email>
           </ContactInfo>
           <Socials>

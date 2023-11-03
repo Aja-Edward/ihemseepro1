@@ -6,31 +6,31 @@ import { BsFillArrowRightCircleFill } from 'react-icons/bs'
 import { mobile, tablet } from './responsiveness'
 
 const StyledLink = styled(Link)`
-  width: 200px;
+  width: 400px;
   display: flex;
   justify-content: center;
   align-items: center;
   text-decoration: none;
   color: #000000;
   ${mobile({
-    width: '50%',
+    width: '100%',
   })}
   ${tablet({
-    width: '50%',
+    width: '100%',
   })};
 `
 const Connect = styled.button`
   font-weight: 700;
   color: #ffff;
   border: 1px solid #ffffff;
-  padding: 18px 20px;
+  padding: 18px;
   font-size: 18px;
   position: relative;
   transition: 0.3s ease-in-out;
   background-color: transparent;
   cursor: pointer;
   ${mobile({
-    padding: '10px 15px',
+    padding: '10px',
     border: 'none',
     fontSize: '14px',
     width: '100%',
@@ -79,7 +79,7 @@ const Button = ({ text }) => {
     <StyledLink href='/contact'>
       <Connect onClick={() => console.log('connect')}>
         {text}
-        <BsFillArrowRightCircleFill style={{ marginLeft: '20px' }} />
+        <BsFillArrowRightCircleFill style={{ marginLeft: '10px' }} />
       </Connect>
     </StyledLink>
   )
