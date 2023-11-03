@@ -114,7 +114,7 @@ const generateEmailContent = (data) => {
     <div class="container">
         <div class="header" style="background-image: url("/aboutus.jpg" alt="Ihems services"),
          background-position: center, background-repeat: no-repeat, background-size: cover">
-         <img src =${adiolelogo} alt="ihemseepro logo"/>
+        
          <div className="email_header">
          <h1>Ihemsi Adiele and sons</h1>
          <p>We are always ready to provide you with best service</p>

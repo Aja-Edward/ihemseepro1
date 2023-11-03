@@ -54,6 +54,7 @@ const Contact = () => {
           Accept: 'application/json',
         },
       })
+      console.log(response)
       if (response.ok) {
         alert('Message sent successfully!')
         router.push('/')
