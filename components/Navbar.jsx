@@ -273,6 +273,11 @@ const Navbar = () => {
     setIsOpen(!isOpen)
   }
 
+  const socialLink = {
+    whatsapp:
+      'https://wa.me/+2347035051476/?text=Hello%2C%20I%20need%20your%20service%20let%20chat%20',
+  }
+
   return (
     <Container className={scrolled ? 'scrolled' : ''}>
       <BrandContainer>
@@ -317,7 +322,7 @@ const Navbar = () => {
           <Direct href='' text='linkedin'>
             <GrLinkedinOption size={24} style={{ zIndex: 2 }} />
           </Direct>
-          <Direct href='' text='whatsapp'>
+          <Direct href={socialLink.whatsapp} text='whatsapp' target='_blank'>
             <RiWhatsappFill size={24} style={{ zIndex: 2 }} />
           </Direct>
           <Direct href='' text='facebook'>

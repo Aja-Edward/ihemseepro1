@@ -11,6 +11,7 @@ const roboto = Roboto({
   display: 'swap',
 })
 
+ 
 export const metadata = {
   title: 'Ihemseepros - Leading Electrical & Electronic Services in Nigeria',
   description:
