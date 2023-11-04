@@ -5,6 +5,7 @@ import styled, { keyframes } from 'styled-components'
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
 import projectData from './projectSliderData'
 import { mobile, tablet } from './sliderresponsiveness'
+import Link from 'next/link'
 
 const ProjectSlider = () => {
   const [currentProject, setCurrentProject] = useState(0)
@@ -25,7 +26,7 @@ const ProjectSlider = () => {
 
   const autoScroll = true
   let slideInterval
-  let intervalTime = 5000
+  let intervalTime = 8000
 
   const auto = () => {
     slideInterval = setInterval(nextProject, intervalTime)
@@ -128,7 +129,9 @@ const ProjectSlider = () => {
   `
   const Image = styled.img`
     width: 100%;
-    height: 100%;
+    height: 80%;
+    object-fit: cover;
+    object-position: center;
   `
   const Content = styled.div`
     position: absolute;
@@ -140,7 +143,6 @@ const ProjectSlider = () => {
     width: 70%;
     padding: 3rem;
     z-index: 1;
-    border-shadow: 5px 20px 10px rgba(255, 255, 255, 0.9);
     color: #fff;
     border-radius: 10px;
     animation: slide-up 1s ease 0.5s;
@@ -161,7 +163,7 @@ const ProjectSlider = () => {
   const Button = styled.button`
     padding: 10px 15px;
     border: none;
-    border-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
     border-radius: 5px;
     margin-top: none;
   `
@@ -173,22 +175,26 @@ const ProjectSlider = () => {
 
       {projectData.map((slide, index) => {
         return (
-          <Slide
-            className={index === currentProject ? 'current ' : 'slide'}
-            currentSlide={currentProject}
-            key={index}
-          >
-            {index === currentProject && (
-              <Wrapper>
-                <Image src={slide.image} alt='my slide' />
-                <Content>
-                  <Title>{slide.title}</Title>
-                  <Desc>{slide.desc}</Desc>
-                  <Button>Get Started</Button>
-                </Content>
-              </Wrapper>
-            )}
-          </Slide>
+          <Link href={'/contact'}>
+            <Slide
+              className={index === currentProject ? 'current ' : 'slide'}
+              currentSlide={currentProject}
+              key={index}
+            >
+              {index === currentProject && (
+                <Wrapper>
+                  <Image src={slide.image} alt='my slide' />
+
+                  <Content>
+                    <Title>{slide.title}</Title>
+                    <Desc>{slide.desc}</Desc>
+
+                    <Button>Get Started</Button>
+                  </Content>
+                </Wrapper>
+              )}
+            </Slide>
+          </Link>
         )
       })}
     </Container>
