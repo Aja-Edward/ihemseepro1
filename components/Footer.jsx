@@ -28,7 +28,7 @@ const Container = styled.div`
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: '  column',
-    backgroundPosition: 'left',
+    backgroundPosition: 'center',
   })}
 `
 

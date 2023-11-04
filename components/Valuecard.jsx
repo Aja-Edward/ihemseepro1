@@ -1,6 +1,5 @@
 'use client'
 
-import 'bootstrap/dist/css/bootstrap.min.css'
 import { Container, Row, Col, Tab } from 'react-bootstrap'
 import Nav from 'react-bootstrap/Nav'
 import { corevalues } from './data'
@@ -8,12 +7,10 @@ import { Mantra } from './data'
 import { ourdirectors } from './data'
 import styled from 'styled-components'
 import { ProjectCard } from './ProjectCard'
-import '@/styles/homestyles.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const Valuecard = () => {
-  const Wrapper = styled.div`
-    background-color: blue;
-  `
+  const Wrapper = styled.div``
   return (
     <section className='project' id='project'>
       <Container>
@@ -29,14 +26,14 @@ const Valuecard = () => {
               >
                 <Nav.Item>
                   <Nav.Link eventKey='first' className='nav-title'>
-                    Our Core Values
+                    Values
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                   <Nav.Link eventKey='second'>Mantra</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey='third'>Our Directors</Nav.Link>
+                  <Nav.Link eventKey='third'>Directors</Nav.Link>
                 </Nav.Item>
               </Nav>
               <Tab.Content>
