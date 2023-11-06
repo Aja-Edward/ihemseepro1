@@ -32,7 +32,7 @@ const About = () => {
     <Container>
       <Banner
         imagesource={'assets/images/aboutus2.png'}
-        title='IHEMSADIELE & SONS LTD'
+        title='Ihemsadele & Sons Ltd.'
         content='We are here to electrify your home and make it comfortable'
       />
       <Wrapper>

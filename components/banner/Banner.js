@@ -46,7 +46,12 @@ const Title = styled.h1`
   color: #fff;
   font-size: 4rem;
   line-height: 90px;
-  ${mobile({ width: '80%', color: '#F9004D ', fontSize: '3rem' })}
+  ${mobile({
+    width: '80%',
+    color: '#F9004D ',
+    fontSize: '3rem',
+    TextAlign: 'center',
+  })}
   ${tablet({ width: '80%', color: '#F9004D', fontSize: '3rem' })}
 `
 const Text = styled.p`
