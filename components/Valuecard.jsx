@@ -17,7 +17,7 @@ const Valuecard = () => {
         <Row>
           <Col>
             <h1 style={{ textAlign: 'center' }}>Our Company</h1>
-            <p style={{ textAlign: 'center' }}> Ihemsadiele and sons</p>
+            <p style={{ textAlign: 'center' }}> Ihemsadiele and Sons</p>
             <Tab.Container id='projects-tabs' defaultActiveKey='first'>
               <Nav
                 variant='pills'
