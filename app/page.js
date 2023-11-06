@@ -193,7 +193,13 @@ export default function HomePage() {
   const [loopNum, setLoopNum] = useState(0)
   const [isDeleting, setIsDeleting] = useState(false)
   const toRotate = [
-    'Adiele & Sons Ltd:',
+    'IHEMSADIELE & SONS LTD:',
+    'Electrical services',
+    "Solar/Inverter installer",
+    "Electrical/Electronics spares",
+    'General Contractors',
+    "CCTV System Installation",
+    'Sales of Electrical parts',
     'Solar Installation',
     'Auto Power Switcher',
     'House Wiring',

@@ -40,13 +40,13 @@ export const services = [
     imgUrl: 'assets/images/electrical work.jpeg',
   },
   {
-    title: ' General Electricals ',
+    title: ' General Electrical/Electronics',
     description:
       'Adiele & Sons Limited is ready to handle all electrical services. Our company is dedicated to ensuring quality and satisfaction',
     imgUrl: 'assets/images/zumaproject.jpg',
   },
   {
-    title: 'Ac instalation ',
+    title: 'General Contracts ',
     description:
       'Your comfort is our watchword. Adiole and Sons Limited is dedicated to ensuring comfort, pleasure and relaxation. No more discomfort caused by excessive heat, as we are redy to put your air conditioner system to work',
     imgUrl: 'assets/images/acinstallation.jpeg',
