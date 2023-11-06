@@ -25,7 +25,7 @@ const TextContent = styled.div`
   position: relative;
   flex: 1;
   ${mobile({
-    width: '70%',
+    width: '80%',
     height: '100%',
     zIndex: 999,
     borderRadius: 20,
