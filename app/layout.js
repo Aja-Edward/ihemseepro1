@@ -5,7 +5,7 @@ import Navbar from '@components/Navbar'
 import Footer from '@components/Footer'
 
 const roboto = Roboto({
-  weights: ['100', '300', '400', '500', '700', '900'],
+  weight: ['100', '300', '400', '500', '700', '900'],
   subsets: ['latin'],
 })
 
