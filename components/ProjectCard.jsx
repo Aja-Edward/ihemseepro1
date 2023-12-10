@@ -1,6 +1,7 @@
 import { Col } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Image from 'next/image'
+import '@components/Valuecard.css'
 
 export const ProjectCard = ({ imgUrl, title, description }) => {
   return (

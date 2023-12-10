@@ -124,7 +124,7 @@ const Services = () => {
                     </Tab.Pane>
                     <Tab.Pane eventKey='second'>
                       <Text>
-                        Ihemseepro's solar services provide sustainable and
+                        Ihemseepro \s solar services provide sustainable and
                         eco-friendly energy solutions, integrating
                         state-of-the-art solar technology for cost-effective and
                         reliable power generation, emphasizing our commitment to
@@ -138,7 +138,7 @@ const Services = () => {
                     </Tab.Pane>
                     <Tab.Pane eventKey='third'>
                       <Text>
-                        Experience Ihemseepro's high-quality poultry farm, where
+                        Experience Ihemseepro\s high-quality poultry farm, where
                         we prioritize animal welfare and modern farming
                         techniques, ensuring the production of premium-quality
                         poultry products that meet the highest standards of

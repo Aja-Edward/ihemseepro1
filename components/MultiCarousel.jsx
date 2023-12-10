@@ -107,7 +107,7 @@ const MultiCarousel = () => {
       <Wrapper className='skill-box'>
         <Title>Main Services</Title>
         <Desc>
-          "Adiele & Sons Ltd. handles a slew of services including repairs,
+          Adiele & Sons Ltd. handles a slew of services including repairs,
           installation and maintenance for solar, air conditioner system, house
           wiring, etc. We also handle poultry business as a way to ensure
           sufficient of food in the country.

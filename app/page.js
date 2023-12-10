@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import styled from 'styled-components'
 
 import Button from '@components/Button'
@@ -174,7 +174,7 @@ export default function HomePage() {
   const [loopNum, setLoopNum] = useState(0)
   const [isDeleting, setIsDeleting] = useState(false)
   const toRotate = [
-    'Adiele & Sons Ltd:',
+    'Ihemsadiele & Sons Ltd:',
     'Solar Installation',
     'Auto Power Switcher',
     'House Wiring',
@@ -187,7 +187,7 @@ export default function HomePage() {
   const [delta, setDelta] = useState(300 - Math.random() * 100)
   const period = 2000
 
-  const tick = () => {
+  const tick = useCallback(() => {
     let i = loopNum % toRotate.length
     let fullText = toRotate[i]
     let updatedText = isDeleting
@@ -207,7 +207,8 @@ export default function HomePage() {
       setLoopNum(loopNum + 1)
       setDelta(500)
     }
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDeleting, loopNum, text.length])
 
   useEffect(() => {
     let ticker = setInterval(() => {
@@ -216,7 +217,7 @@ export default function HomePage() {
     return () => {
       clearInterval(ticker)
     }
-  }, [delta, text])
+  }, [delta, text, tick])
 
   return (
     <Container>
