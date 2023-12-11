@@ -211,14 +211,17 @@ const Footer = () => {
             </Tel>
             <Email>
               <Small> Email:</Small>
-              ajaedward750@gmail.com
+              ihemsadiele22@gmail.com
             </Email>
           </ContactInfo>
           <Socials>
             <Direct href='' text='linkedin'>
               <GrLinkedinOption size={24} style={{ zIndex: 2 }} />
             </Direct>
-            <Direct href='' text='whatsapp'>
+            <Direct
+              href='href="https://wa.me/+2347035051476?text=Hello%20service%20my%20!"'
+              text='whatsapp'
+            >
               <RiWhatsappFill size={24} style={{ zIndex: 2 }} />
             </Direct>
             <Direct href='' text='facebook'>
