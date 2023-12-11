@@ -234,11 +234,8 @@ export default function HomePage() {
           </Title>
           <Content>
             Empowering homes and businesses with reliable electrical and
-            electronic solutions, ihemseepro is your trusted partner for
+            electronic solutions, Ihemsadiele is your trusted partner for
             seamless installations, prompt repairs, and comprehensive services.
-            With a focus on quality craftsmanship and customer satisfaction, we
-            ensure efficient and sustainable solutions for all your electrical
-            and electronic needs.
           </Content>
           <Button text='Connect here' />
         </Text>
