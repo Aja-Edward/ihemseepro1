@@ -190,6 +190,15 @@ const Copyright = styled.p`
   ${tablet({ width: '90%' })}
 `
 const Footer = () => {
+  const socialLinks = {
+    instagram: '',
+    facebook: '',
+    linkedin: '',
+    twitter: '',
+    youtube: '',
+    whatsapp: 'https://wa.me/+2347035051476',
+  }
+
   return (
     <Container>
       <Wrapper>
@@ -219,8 +228,10 @@ const Footer = () => {
               <GrLinkedinOption size={24} style={{ zIndex: 2 }} />
             </Direct>
             <Direct
-              href='href="https://wa.me/+2347035051476?text=Hello%20service%20my%20!"'
+              href={socialLinks.whatsapp}
               text='whatsapp'
+              target='_blank'
+              rel='noopener noreferrer'
             >
               <RiWhatsappFill size={24} style={{ zIndex: 2 }} />
             </Direct>
