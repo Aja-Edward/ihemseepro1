@@ -102,10 +102,10 @@ const Services = () => {
                       <Nav.Link eventKey='first'>Electrical</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                      <Nav.Link eventKey='second'>Solar Services </Nav.Link>
+                      <Nav.Link eventKey='second'>Solar</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                      <Nav.Link eventKey='third'>Poultry Farm</Nav.Link>
+                      <Nav.Link eventKey='third'>Poultry</Nav.Link>
                     </Nav.Item>
                   </Nav>
                   <Tab.Content>
