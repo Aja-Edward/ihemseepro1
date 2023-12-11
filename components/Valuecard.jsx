@@ -29,14 +29,14 @@ const Valuecard = () => {
               >
                 <Nav.Item>
                   <Nav.Link eventKey='first' className='nav-title'>
-                    Our Core Values
+                    Values
                   </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                   <Nav.Link eventKey='second'>Mantra</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey='third'>Our Directors</Nav.Link>
+                  <Nav.Link eventKey='third'>Directors</Nav.Link>
                 </Nav.Item>
               </Nav>
               <Tab.Content>
