@@ -272,6 +272,14 @@ const Navbar = () => {
     setIsOpen(!isOpen)
     setIsOpen(!isOpen)
   }
+  const socialLinks = {
+    instagram: '',
+    facebook: '',
+    linkedin: '',
+    twitter: '',
+    youtube: '',
+    whatsapp: 'https://wa.me/+2347035051476',
+  }
 
   return (
     <Container className={scrolled ? 'scrolled' : ''}>
@@ -314,16 +322,16 @@ const Navbar = () => {
           </Connect>
         </List>
         <Socials>
-          <Direct href='' text='linkedin'>
+          <Direct href={socialLinks.linkedin} text='linkedin'>
             <GrLinkedinOption size={24} style={{ zIndex: 2 }} />
           </Direct>
-          <Direct href='' text='whatsapp'>
+          <Direct href={socialLinks.whatsapp} text='whatsapp'>
             <RiWhatsappFill size={24} style={{ zIndex: 2 }} />
           </Direct>
-          <Direct href='' text='facebook'>
+          <Direct href={socialLinks.facebook} text='facebook'>
             <FaFacebook size={24} style={{ zIndex: 2 }} />
           </Direct>
-          <Direct href='' text='instagram'>
+          <Direct href={socialLinks.instagram} text='instagram'>
             <AiOutlineInstagram size={24} style={{ zIndex: 2 }} />
           </Direct>
         </Socials>
