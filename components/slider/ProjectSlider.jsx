@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
 import projectData from './projectSliderData'
@@ -24,11 +24,11 @@ const ProjectSlider = () => {
   }
 
   const autoScroll = true
-  let slideInterval
+const slideInterval = useRef(null);
   let intervalTime = 5000
 
   const auto = () => {
-    slideInterval = setInterval(nextProject, intervalTime)
+    slideInterval.current = setInterval(nextProject, intervalTime);
   }
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const ProjectSlider = () => {
     if (autoScroll === true) {
       auto()
     }
-    return () => clearInterval(slideInterval)
+    return () => clearInterval(slideInterval.current);
   }, [auto, autoScroll, currentProject, slideInterval])
 
   const slideUp = keyframes`

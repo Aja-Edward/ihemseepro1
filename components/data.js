@@ -39,36 +39,42 @@ export const services = [
     description:
       'We have he best hand in electrical wiring. Our experts handle newly built houses and maintain other electrical appliances',
     imgUrl: '/assets/images/ligningsupplys.jpeg',
+    category: 'Residential'
   },
   {
     title: ' General Electricals ',
     description:
       'Adiele & Sons Limited is ready to handle all electrical services. Our company is dedicated to ensuring quality and satisfaction',
     imgUrl: '/assets/images/Workingwithboys.jpeg',
+    category: 'Indusrial'
   },
   {
     title: 'Ac instalation ',
     description:
-      'Your comfort is our watchword. Adiole and Sons Limited is dedicated to ensuring comfort, pleasure and relaxation. No more discomfort caused by excessive heat, as we are redy to put your air conditioner system to work',
+      'Adiole and Sons Limited is dedicated to ensuring comfort with good lighting to all our clients by putting their lighting to work',
     imgUrl: '/assets/images/acinstallation.jpeg',
+    category: 'Residential'
   },
   {
     title: ' Auto power switcher',
     description:
       'No need coming out of your comfort to change your power. We ar ready to ensure the power changed automatically with the help of our  tech improved auto power switcher',
     imgUrl: '/assets/images/autochangeover.jpeg',
+    category: 'Commercial'
   },
   {
     title: 'General contracts',
     description:
       'We handle general contracts, installation, electrical and electronics. These and more are reasons we are called eepro team.',
     imgUrl: '/assets/images/readytostart.jpeg',
+    category: 'Residential'
   },
   {
-    title: ' Check on us for luxury lighting system ',
+    title: ' Luxury lighting',
     description:
-      'We handle luxury lighting service for individuals and corporate bodies. Also, we handle AC systems. Let Adiele and sons limited handle your AC mounting and lighting isntalation and you will always be glad thatyou did',
+      'We handle luxury lighting service for individuals and corporate bodies. Call us today',
     imgUrl: '/assets/images/mountingluxurylight.jpeg',
+    category: 'Commercial'
   },
 ]
 
@@ -151,7 +157,7 @@ export const ourdirectors = [
 
 export const services2ndtab = [
   {
-    title: ' Solar Panel Installation ',
+    title: ' Solar Installation ',
     description:
       'Be believe in renewable green energy which is the reason we are offering best quality solar panel installation services',
     imgUrl: '/assets/images/solar4.jpg',
@@ -163,15 +169,15 @@ export const services2ndtab = [
     imgUrl: '/assets/images/inverterbattrey.jpeg',
   },
   {
-    title: 'Solar Panel Maintenance ',
+    title: 'Solar Maintenance ',
     description:
-      'Your comfort is our watchword. Adiole and Sons Limited is dedicated to ensuring comfort, pleasure and relaxation. No more discomfort caused by excessive heat, as we are redy to put your air conditioner system to work',
+      'Your comfort is our watchword. Contact us today for your lighting, green energy via solar system isntallation',
     imgUrl: '/assets/images/solar1.jpg',
   },
   {
-    title: ' Men Handling Solar Work',
+    title: ' Men at Work',
     description:
-      'Contact us for your solar work.Irrespective of the height of your roof, we have qualified and experiencd men ready to climb and do a good job.',
+      'Contact us for solar system installation and maintenance. Notwitstanding the kind of building, we have capable hand for the job',
     imgUrl: '/assets/images/solar2.jpg',
   },
   {
