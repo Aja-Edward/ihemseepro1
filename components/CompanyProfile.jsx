@@ -1,7 +1,10 @@
+
 'use client'
 
 import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
-import { ChevronLeft, ChevronRight, RotateCcw, ZoomIn, ZoomOut, Upload } from 'lucide-react';
+import { ChevronLeft, ChevronRight, RotateCcw, ZoomIn, ZoomOut, Upload, Download, FileText, X } from 'lucide-react';
+import Banner from './banner/Banner';
+import { samplePages } from './data';
 
 const FlipBook = () => {
   const [currentSpread, setCurrentSpread] = useState(0);
@@ -10,223 +13,250 @@ const FlipBook = () => {
   const [zoom, setZoom] = useState(1);
   const [pdfFile, setPdfFile] = useState(null);
   const [pages, setPages] = useState([]);
+  const [isDragOver, setIsDragOver] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [styles, setStyles] = useState({});
+  const [isMounted, setIsMounted] = useState(false);
   const fileInputRef = useRef(null);
 
-  // Sample pages for demonstration - creating more pages for better demo
+  const memoizedPages = useMemo(() => samplePages, []);
 
-  const samplePages = useMemo(() => [
-    // Cover page
-    {
-      id: 0,
-      content: (
-        <div className="w-full h-full bg-gradient-to-br from-indigo-600 to-purple-700 p-8 flex flex-col justify-center items-center text-white">
-          <div className="text-center">
-            <h1 className="text-5xl font-bold mb-4">FlipBook Pro</h1>
-            <p className="text-xl mb-8 opacity-90">Next.js Interactive Magazine</p>
-            <div className="w-32 h-32 bg-white bg-opacity-20 rounded-full flex items-center justify-center mb-6">
-              <span className="text-4xl">📖</span>
-            </div>
-            <p className="text-sm opacity-75">Experience realistic page flipping</p>
-          </div>
-        </div>
-      )
-    },
-    // Page 1
-    {
-      id: 1,
-      content: (
-        <div className="w-full h-full bg-white p-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-6">Table of Contents</h1>
-          <div className="space-y-4 text-gray-700">
-            <div className="flex justify-between border-b border-dotted border-gray-300 pb-2">
-              <span className="text-lg">Getting Started</span>
-              <span className="text-lg font-mono">02</span>
-            </div>
-            <div className="flex justify-between border-b border-dotted border-gray-300 pb-2">
-              <span className="text-lg">Features & Benefits</span>
-              <span className="text-lg font-mono">04</span>
-            </div>
-            <div className="flex justify-between border-b border-dotted border-gray-300 pb-2">
-              <span className="text-lg">Interactive Elements</span>
-              <span className="text-lg font-mono">06</span>
-            </div>
-            <div className="flex justify-between border-b border-dotted border-gray-300 pb-2">
-              <span className="text-lg">Customization Guide</span>
-              <span className="text-lg font-mono">08</span>
-            </div>
-            <div className="flex justify-between border-b border-dotted border-gray-300 pb-2">
-              <span className="text-lg">Upload Your Content</span>
-              <span className="text-lg font-mono">10</span>
-            </div>
-          </div>
-          <div className="absolute bottom-8 left-8 text-sm text-gray-500">Page 1</div>
-        </div>
-      )
-    },
-    // Page 2
-    {
-      id: 2,
-      content: (
-        <div className="w-full h-full bg-gradient-to-br from-blue-50 to-cyan-50 p-8">
-          <h2 className="text-3xl font-bold text-blue-800 mb-6">Getting Started</h2>
-          <div className="space-y-6 text-gray-700">
-            <p className="text-lg leading-relaxed">
-              Welcome to the most advanced flipbook component built with Next.js and React. 
-              This component provides a realistic book reading experience with smooth page transitions.
-            </p>
-            <div className="bg-blue-100 border-l-4 border-blue-500 p-4 rounded">
-              <h3 className="font-semibold text-blue-800 mb-2">Key Features:</h3>
-              <ul className="list-disc list-inside space-y-1 text-blue-700">
-                <li>Realistic 3D page flipping animations</li>
-                <li>Two-page spread layout like real books</li>
-                <li>Smooth transitions with proper timing</li>
-                <li>Mobile-responsive design</li>
-              </ul>
-            </div>
-            <div className="flex justify-center mt-8">
-              <div className="w-24 h-24 bg-blue-200 rounded-full flex items-center justify-center">
-                <span className="text-3xl">🚀</span>
-              </div>
-            </div>
-          </div>
-          <div className="absolute bottom-8 left-8 text-sm text-gray-500">Page 2</div>
-        </div>
-      )
-    },
-    // Page 3
-    {
-      id: 3,
-      content: (
-        <div className="w-full h-full bg-white p-8">
-          <h2 className="text-3xl font-bold text-green-800 mb-6">Interactive Navigation</h2>
-          <div className="space-y-6 text-gray-700">
-            <p className="text-lg">
-              Experience multiple ways to navigate through your content:
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-green-50 p-4 rounded-lg">
-                <h3 className="font-semibold text-green-800 mb-3">⌨️ Keyboard Controls</h3>
-                <p className="text-sm text-green-700">Use left and right arrow keys for quick navigation</p>
-              </div>
-              <div className="bg-green-50 p-4 rounded-lg">
-                <h3 className="font-semibold text-green-800 mb-3">👆 Click Navigation</h3>
-                <p className="text-sm text-green-700">Click on page edges or use navigation buttons</p>
-              </div>
-              <div className="bg-green-50 p-4 rounded-lg">
-                <h3 className="font-semibold text-green-800 mb-3">📱 Touch Support</h3>
-                <p className="text-sm text-green-700">Swipe gestures for mobile devices</p>
-              </div>
-              <div className="bg-green-50 p-4 rounded-lg">
-                <h3 className="font-semibold text-green-800 mb-3">🔍 Zoom Controls</h3>
-                <p className="text-sm text-green-700">Zoom in/out for detailed viewing</p>
-              </div>
-            </div>
-          </div>
-          <div className="absolute bottom-8 left-8 text-sm text-gray-500">Page 3</div>
-        </div>
-      )
-    },
-    // Page 4
-    {
-      id: 4,
-      content: (
-        <div className="w-full h-full bg-gradient-to-br from-purple-50 to-pink-50 p-8">
-          <h2 className="text-3xl font-bold text-purple-800 mb-6">Visual Excellence</h2>
-          <div className="space-y-6">
-            <p className="text-lg text-gray-700 leading-relaxed">
-              Every detail is crafted for the perfect reading experience with realistic shadows, 
-              smooth animations, and professional typography.
-            </p>
-            <div className="flex justify-center space-x-8 my-8">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-purple-200 rounded-lg flex items-center justify-center mb-2">
-                  <span className="text-2xl">✨</span>
-                </div>
-                <p className="text-sm text-purple-700">Smooth</p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-purple-200 rounded-lg flex items-center justify-center mb-2">
-                  <span className="text-2xl">🎨</span>
-                </div>
-                <p className="text-sm text-purple-700">Beautiful</p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-purple-200 rounded-lg flex items-center justify-center mb-2">
-                  <span className="text-2xl">⚡</span>
-                </div>
-                <p className="text-sm text-purple-700">Fast</p>
-              </div>
-            </div>
-            <div className="bg-purple-100 border border-purple-200 rounded-lg p-4">
-              <p className="text-purple-800 text-center italic">
-                The most realistic digital reading experience I have ever seen!
-              </p>
-            </div>
-          </div>
-          <div className="absolute bottom-8 left-8 text-sm text-gray-500">Page 4</div>
-        </div>
-      )
-    },
-    // Page 5
-    {
-      id: 5,
-      content: (
-        <div className="w-full h-full bg-white p-8">
-          <h2 className="text-3xl font-bold text-orange-800 mb-6">Upload Your Content</h2>
-          <div className="space-y-6 text-gray-700">
-            <p className="text-lg">
-              Transform your PDFs into interactive flipbooks with just one click.
-            </p>
-            <div className="flex justify-center">
-              <div className="bg-orange-50 border-2 border-dashed border-orange-300 rounded-xl p-8 text-center max-w-md">
-                <Upload size={48} className="text-orange-500 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-orange-800 mb-2">Drag & Drop PDF</h3>
-                <p className="text-orange-600 mb-4">or click to browse files</p>
-                <button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition-colors">
-                  Choose File
-                </button>
-              </div>
-            </div>
-            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-              <p className="text-yellow-800 text-sm">
-                <strong>Note:</strong> Full PDF support requires PDF.js integration. 
-                This demo shows the flipbook functionality with sample content.
-              </p>
-            </div>
-          </div>
-          <div className="absolute bottom-8 left-8 text-sm text-gray-500">Page 5</div>
-        </div>
-      )
-    },
-    // Back cover
-    {
-      id: 6,
-      content: (
-        <div className="w-full h-full bg-gradient-to-br from-gray-700 to-gray-900 p-8 flex flex-col justify-center items-center text-white">
-          <div className="text-center">
-            <h2 className="text-4xl font-bold mb-6">Thank You</h2>
-            <p className="text-xl mb-8 opacity-90">for exploring FlipBook Pro</p>
-            <div className="w-24 h-24 bg-white bg-opacity-20 rounded-full flex items-center justify-center mb-6">
-              <span className="text-3xl">🎉</span>
-            </div>
-            <p className="text-sm opacity-75 max-w-md">
-              Ready to create your own interactive flipbooks? 
-              Start building amazing digital experiences today!
-            </p>
-          </div>
-        </div>
-      )
+  // Handle mounting state
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Set up inline styles using useEffect
+  useEffect(() => {
+    if (!isMounted) return;
+    
+    const isMobile = window.innerWidth < 768;
+    
+    setStyles({
+      container: {
+        minHeight: '100vh',
+        background: 'bluebg-cyan-400/30 ',
+        display: 'flex',
+        flexDirection: 'column',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      },
+      toolbar: {
+        background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
+        boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+        padding: isMobile ? '12px' : '20px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderBottom: '1px solid #e2e8f0',
+        backdropFilter: 'blur(10px)'
+      },
+      toolbarTitle: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: isMobile ? '8px' : '16px',
+        flexWrap: 'wrap'
+      },
+      title: {
+        color: '#1e293b',
+        fontSize: isMobile ? '18px' : '24px',
+        fontWeight: '700',
+        background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        backgroundClip: 'text'
+      },
+      spreadInfo: {
+        color: '#64748b',
+        fontSize: isMobile ? '12px' : '14px',
+        fontWeight: '500'
+      },
+      controls: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: isMobile ? '8px' : '12px',
+        flexWrap: 'wrap'
+      },
+      uploadButton: {
+        background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
+        color: 'white',
+        padding: isMobile ? '8px 12px' : '12px 20px',
+        borderRadius: '12px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
+        border: 'none',
+        cursor: 'pointer',
+        fontSize: isMobile ? '12px' : '14px',
+        fontWeight: '600',
+        transition: 'all 0.3s ease',
+        boxShadow: '0 4px 15px 0 rgba(59, 130, 246, 0.35)'
+      },
+      zoomControls: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '4px',
+        background: '#f1f5f9',
+        borderRadius: '12px',
+        padding: '4px'
+      },
+      zoomButton: {
+        padding: '8px',
+        color: '#374151',
+        background: 'transparent',
+        border: 'none',
+        borderRadius: '8px',
+        cursor: 'pointer',
+        transition: 'all 0.2s ease'
+      },
+      mainContainer: {
+        flex: '1',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: isMobile ? '16px' : '32px',
+        position: 'relative'
+      },
+      bookWrapper: {
+        position: 'relative',
+        filter: 'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.25))'
+      },
+      navButton: {
+        position: 'absolute',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        zIndex: '30',
+        background: 'rgba(255, 255, 255, 0.95)',
+        borderRadius: '50%',
+        padding: isMobile ? '12px' : '16px',
+        border: 'none',
+        cursor: 'pointer',
+        boxShadow: '0 10px 25px rgba(0, 0, 0, 0.15)',
+        transition: 'all 0.3s ease',
+        backdropFilter: 'blur(10px)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: isMobile ? '48px' : '56px',
+        height: isMobile ? '48px' : '56px'
+      },
+      leftNavButton: {
+        left: isMobile ? '8px' : '16px'
+      },
+      rightNavButton: {
+        right: isMobile ? '8px' : '16px'
+      },
+      bookContainer: {
+        perspective: '2000px',
+        position: 'relative'
+      },
+      book: {
+        display: 'flex',
+        background: 'linear-gradient(135deg, #92400e 0%, #78350f 100%)',
+        borderRadius: '12px',
+        overflow: 'hidden',
+        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+        border: '2px solid #a16207'
+      },
+      page: {
+        width: isMobile ? '280px' : '384px',
+        height: isMobile ? '350px' : '500px',
+        position: 'relative',
+        background: '#ffffff',
+        overflow: 'hidden'
+      },
+      spine: {
+        width: '16px',
+        background: 'linear-gradient(90deg, #92400e 0%, #78350f 100%)',
+        boxShadow: 'inset 0 0 10px rgba(0, 0, 0, 0.3)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      },
+      spineDetail: {
+        width: '2px',
+        height: '75%',
+        background: '#a16207',
+        borderRadius: '1px'
+      },
+      pageIndicators: {
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: '32px',
+        gap: '8px'
+      },
+      indicator: {
+        width: '12px',
+        height: '12px',
+        borderRadius: '50%',
+        border: 'none',
+        cursor: 'pointer',
+        transition: 'all 0.3s ease'
+      },
+      instructions: {
+        background: 'rgba(255, 255, 255, 0.9)',
+        borderTop: '1px solid #e2e8f0',
+        padding: '16px',
+        textAlign: 'center',
+        backdropFilter: 'blur(10px)'
+      },
+      uploadZone: {
+        position: 'fixed',
+        top: '0',
+        left: '0',
+        right: '0',
+        bottom: '0',
+        background: 'rgba(0, 0, 0, 0.8)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: '1000',
+        backdropFilter: 'blur(5px)'
+      },
+      uploadModal: {
+        background: 'white',
+        borderRadius: '20px',
+        padding: '40px',
+        maxWidth: '500px',
+        width: '90%',
+        textAlign: 'center',
+        boxShadow: '0 25px 50px rgba(0, 0, 0, 0.25)',
+        position: 'relative'
+      }
+    });
+
+    const handleResize = () => {
+      const newIsMobile = window.innerWidth < 768;
+      setStyles(prevStyles => ({
+        ...prevStyles,
+        toolbar: {
+          ...prevStyles.toolbar,
+          padding: newIsMobile ? '12px' : '20px'
+        },
+        page: {
+          ...prevStyles.page,
+          width: newIsMobile ? '280px' : '384px',
+          height: newIsMobile ? '350px' : '500px'
+        }
+      }));
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isMounted]);
+
+  const totalPages = useMemo(() => pages.length || samplePages.length, [pages, samplePages]);
+  const totalSpreads = useMemo(() => Math.ceil(totalPages / 2), [totalPages]);
+  const currentPages = pages.length > 0 ? pages : samplePages;
+
+  useEffect(() => {
+    if (pages.length === 0) {
+      setPages(samplePages);
     }
-  ], []);
-
- const totalPages = useMemo(() => samplePages.length, [samplePages]);
- const totalSpreads = useMemo(() => Math.ceil(totalPages / 2), [totalPages]);
+  }, [samplePages, pages.length]);
 
   useEffect(() => {
-  setPages(samplePages);
-}, [samplePages]);
-
-  useEffect(() => {
+    if (!isMounted) return;
+    
     const handleKeyPress = (e) => {
       if (e.key === 'ArrowLeft') {
         previousSpread();
@@ -237,41 +267,247 @@ const FlipBook = () => {
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [currentSpread, isFlipping]);
+  }, [currentSpread, isFlipping, isMounted]);
 
   const nextSpread = useCallback(() => {
-  if (currentSpread < totalSpreads - 1 && !isFlipping) {
-    setIsFlipping(true);
-    setFlipDirection('forward');
-    setTimeout(() => {
-      setCurrentSpread(prev => prev + 1);
+    if (currentSpread < totalSpreads - 1 && !isFlipping) {
+      setIsFlipping(true);
+      setFlipDirection('forward');
       setTimeout(() => {
-        setIsFlipping(false);
-        setFlipDirection('');
-      }, 100);
-    }, 800);
-  }
-}, [currentSpread, isFlipping, totalSpreads]);
+        setCurrentSpread(prev => prev + 1);
+        setTimeout(() => {
+          setIsFlipping(false);
+          setFlipDirection('');
+        }, 100);
+      }, 300);
+    }
+  }, [currentSpread, isFlipping, totalSpreads]);
 
-const previousSpread = useCallback(() => {
-  if (currentSpread > 0 && !isFlipping) {
-    setIsFlipping(true);
-    setFlipDirection('backward');
-    setTimeout(() => {
-      setCurrentSpread(prev => prev - 1);
+  const previousSpread = useCallback(() => {
+    if (currentSpread > 0 && !isFlipping) {
+      setIsFlipping(true);
+      setFlipDirection('backward');
       setTimeout(() => {
-        setIsFlipping(false);
-        setFlipDirection('');
-      }, 100);
-    }, 800);
-  }
-}, [currentSpread, isFlipping]);
+        setCurrentSpread(prev => prev - 1);
+        setTimeout(() => {
+          setIsFlipping(false);
+          setFlipDirection('');
+        }, 100);
+      }, 300);
+    }
+  }, [currentSpread, isFlipping]);
 
-  const handleFileUpload = (event) => {
-    const file = event.target.files[0];
-    if (file && file.type === 'application/pdf') {
-      setPdfFile(file);
-      alert('PDF upload feature would be implemented with PDF.js library in a real application');
+  // Enhanced file upload handler with better PDF page generation
+  const handleFileUpload = async (file) => {
+    if (!file || file.type !== 'application/pdf') {
+      alert('Please select a valid PDF file');
+      return;
+    }
+
+    setIsUploading(true);
+    
+    try {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        // Generate multiple pages for the PDF to demonstrate pagination
+        const pageCount = Math.floor(Math.random() * 10) + 6; // Random 6-15 pages
+        const newPages = [];
+        
+        // Cover page
+        newPages.push({
+          id: 0,
+          content: (
+            <div style={{
+              width: '100%',
+              height: '100%',
+              background: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
+              padding: '32px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              color: 'white'
+            }}>
+              <FileText size={64} style={{ marginBottom: '16px' }} />
+              <h2 style={{ fontSize: '24px', fontWeight: '600', marginBottom: '8px', textAlign: 'center' }}>
+                {file.name}
+              </h2>
+              <p style={{ fontSize: '14px', opacity: '0.8' }}>
+                PDF Document Loaded
+              </p>
+              <p style={{ fontSize: '12px', marginTop: '16px', opacity: '0.7' }}>
+                Size: {(file.size / 1024 / 1024).toFixed(2)} MB
+              </p>
+              <p style={{ fontSize: '12px', marginTop: '8px', opacity: '0.7' }}>
+                Pages: {pageCount}
+              </p>
+            </div>
+          )
+        });
+
+        // Generate content pages
+        for (let i = 1; i < pageCount; i++) {
+          newPages.push({
+            id: i,
+            content: (
+              <div style={{ 
+                width: '100%', 
+                height: '100%', 
+                background: 'white', 
+                padding: '32px',
+                display: 'flex',
+                flexDirection: 'column'
+              }}>
+                <div style={{
+                  borderBottom: '2px solid #065f46',
+                  paddingBottom: '16px',
+                  marginBottom: '24px'
+                }}>
+                  <h2 style={{ 
+                    fontSize: '28px', 
+                    fontWeight: '600', 
+                    color: '#065f46', 
+                    margin: '0'
+                  }}>
+                    Page {i + 1}
+                  </h2>
+                  <p style={{ 
+                    fontSize: '14px', 
+                    color: '#6b7280', 
+                    margin: '8px 0 0 0' 
+                  }}>
+                    {file.name}
+                  </p>
+                </div>
+                
+                <div style={{ color: '#374151', lineHeight: '1.6', flex: 1 }}>
+                  {i === 1 ? (
+                    <>
+                      <p style={{ marginBottom: '16px' }}>
+                        Your PDF has been successfully loaded into the FlipBook viewer.
+                      </p>
+                      <div style={{
+                        background: '#d1fae5',
+                        border: '1px solid #10b981',
+                        borderRadius: '8px',
+                        padding: '16px',
+                        marginBottom: '16px'
+                      }}>
+                        <p style={{ color: '#065f46', fontWeight: '500', margin: 0 }}>
+                          ✅ File uploaded successfully
+                        </p>
+                      </div>
+                      <p style={{ fontSize: '14px', color: '#6b7280' }}>
+                        In a production environment, this would use PDF.js to render actual PDF content. 
+                        Each page would display the real PDF content with proper text extraction and rendering.
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <p style={{ marginBottom: '16px' }}>
+                        This is page {i + 1} of your uploaded PDF document. In a real implementation, 
+                        this would contain the actual content from your PDF file.
+                      </p>
+                      
+                      <div style={{
+                        background: '#f3f4f6',
+                        borderRadius: '8px',
+                        padding: '16px',
+                        marginBottom: '16px',
+                        border: '1px solid #d1d5db'
+                      }}>
+                        <h3 style={{ 
+                          fontSize: '18px', 
+                          fontWeight: '500', 
+                          color: '#374151',
+                          margin: '0 0 8px 0'
+                        }}>
+                          Sample Content Section
+                        </h3>
+                        <p style={{ fontSize: '14px', color: '#6b7280', margin: 0 }}>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                          Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        </p>
+                      </div>
+
+                      <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        marginTop: 'auto',
+                        paddingTop: '16px',
+                        borderTop: '1px solid #e5e7eb'
+                      }}>
+                        <span style={{ fontSize: '12px', color: '#9ca3af' }}>
+                          Document: {file.name}
+                        </span>
+                        <span style={{ fontSize: '12px', color: '#9ca3af' }}>
+                          Page {i + 1} of {pageCount}
+                        </span>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+            )
+          });
+        }
+        
+        setPages(newPages);
+        setPdfFile(file);
+        setCurrentSpread(0);
+        setIsUploading(false);
+      };
+      
+      reader.readAsDataURL(file);
+    } catch (error) {
+      console.error('Error processing file:', error);
+      alert('Error processing the PDF file');
+      setIsUploading(false);
+    }
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragOver(false);
+    const files = Array.from(e.dataTransfer.files);
+    if (files.length > 0) {
+      handleFileUpload(files[0]);
+    }
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    setIsDragOver(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    setIsDragOver(false);
+  };
+
+  // Download functionality
+  const handleDownload = () => {
+    if (pdfFile) {
+      const url = URL.createObjectURL(pdfFile);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = pdfFile.name;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } else {
+      const content = `FlipBook Pro - Demo Content\n\nThis is a sample document created by FlipBook Pro.\n\nFeatures:\n- Interactive page flipping\n- PDF upload support\n- Mobile responsive design\n- Zoom controls\n- Download functionality`;
+      const blob = new Blob([content], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'flipbook-demo.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     }
   };
 
@@ -284,72 +520,139 @@ const previousSpread = useCallback(() => {
     const rightPageIndex = leftPageIndex + 1;
     
     return {
-      leftPage: pages[leftPageIndex] || null,
-      rightPage: rightPageIndex < pages.length ? pages[rightPageIndex] : null
+      leftPage: currentPages[leftPageIndex] || null,
+      rightPage: rightPageIndex < currentPages.length ? currentPages[rightPageIndex] : null
     };
   };
 
-  const getFlippingPages = () => {
-    if (flipDirection === 'forward') {
-      const nextLeftIndex = (currentSpread + 1) * 2;
-      const nextRightIndex = nextLeftIndex + 1;
-      return {
-        leftPage: pages[nextLeftIndex] || null,
-        rightPage: nextRightIndex < pages.length ? pages[nextRightIndex] : null
-      };
-    } else if (flipDirection === 'backward') {
-      const prevLeftIndex = (currentSpread - 1) * 2;
-      const prevRightIndex = prevLeftIndex + 1;
-      return {
-        leftPage: pages[prevLeftIndex] || null,
-        rightPage: prevRightIndex < pages.length ? pages[prevRightIndex] : null
-      };
-    }
-    return { leftPage: null, rightPage: null };
-  };
-
   const { leftPage, rightPage } = getCurrentPages();
-  const { leftPage: flippingLeftPage, rightPage: flippingRightPage } = getFlippingPages();
+
+  // Don't render anything until mounted (prevents SSR issues)
+  if (!isMounted) {
+    return (
+      <div style={{ 
+        minHeight: '100vh', 
+        background: 'linear-gradient(135deg, #fef7cd 0%, #fed7aa 100%)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+        <div>Loading...</div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100 flex flex-col">
+    <div 
+      style={styles.container}
+      onDrop={handleDrop}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+    >
+      <Banner
+        imagesource={'/assets/images/marvelous.png'}
+        title='Company Profile' 
+        content='Take your time to curate our company profile to know more about our company structure, registration, experiences, and many others'
+      />
+      
       {/* Toolbar */}
-      <div className="bg-white shadow-lg p-4 flex items-center justify-between border-b">
-        <div className="flex items-center space-x-4">
-          <h1 className="text-gray-800 text-xl font-bold">FlipBook Pro</h1>
-          <span className="text-gray-600">
+      <div style={styles.toolbar}>
+        <div style={styles.toolbarTitle}>
+          <h1 style={styles.title}>Ihemsadiele</h1>
+          <span style={styles.spreadInfo}>
             Spread {currentSpread + 1} of {totalSpreads}
           </span>
         </div>
         
-        <div className="flex items-center space-x-2">
+        <div style={styles.controls}>
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors"
+            style={{
+              ...styles.uploadButton,
+              opacity: isUploading ? 0.7 : 1,
+              cursor: isUploading ? 'not-allowed' : 'pointer'
+            }}
+            disabled={isUploading}
+            onMouseEnter={(e) => {
+              if (!isUploading) {
+                e.target.style.transform = 'translateY(-2px)';
+                e.target.style.boxShadow = '0 8px 25px 0 rgba(59, 130, 246, 0.45)';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (!isUploading) {
+                e.target.style.transform = 'translateY(0)';
+                e.target.style.boxShadow = '0 4px 15px 0 rgba(59, 130, 246, 0.35)';
+              }
+            }}
           >
             <Upload size={16} />
-            <span>Upload PDF</span>
+            <span>{isUploading ? 'Uploading...' : 'Upload PDF'}</span>
+          </button>
+
+          <button
+            onClick={handleDownload}
+            style={{
+              ...styles.uploadButton,
+              background: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
+              boxShadow: '0 4px 15px 0 rgba(5, 150, 105, 0.35)'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.transform = 'translateY(-2px)';
+              e.target.style.boxShadow = '0 8px 25px 0 rgba(5, 150, 105, 0.45)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.transform = 'translateY(0)';
+              e.target.style.boxShadow = '0 4px 15px 0 rgba(5, 150, 105, 0.35)';
+            }}
+          >
+            <Download size={16} />
+            <span>Download</span>
           </button>
           
-          <div className="flex items-center space-x-1 bg-gray-100 rounded-lg p-1">
+          <div style={styles.zoomControls}>
             <button
               onClick={zoomOut}
-              className="p-2 text-gray-700 hover:bg-white rounded transition-colors"
+              style={{
+                ...styles.zoomButton,
+                opacity: zoom <= 0.5 ? 0.5 : 1,
+                cursor: zoom <= 0.5 ? 'not-allowed' : 'pointer'
+              }}
               disabled={zoom <= 0.5}
+              onMouseEnter={(e) => {
+                if (zoom > 0.5) e.target.style.background = 'white';
+              }}
+              onMouseLeave={(e) => {
+                if (zoom > 0.5) e.target.style.background = 'transparent';
+              }}
             >
               <ZoomOut size={16} />
             </button>
-            <span className="text-gray-700 px-2 text-sm">{Math.round(zoom * 100)}%</span>
+            <span style={{ color: '#374151', padding: '0 8px', fontSize: '14px', fontWeight: '500' }}>
+              {Math.round(zoom * 100)}%
+            </span>
             <button
               onClick={zoomIn}
-              className="p-2 text-gray-700 hover:bg-white rounded transition-colors"
+              style={{
+                ...styles.zoomButton,
+                opacity: zoom >= 2 ? 0.5 : 1,
+                cursor: zoom >= 2 ? 'not-allowed' : 'pointer'
+              }}
               disabled={zoom >= 2}
+              onMouseEnter={(e) => {
+                if (zoom < 2) e.target.style.background = 'white';
+              }}
+              onMouseLeave={(e) => {
+                if (zoom < 2) e.target.style.background = 'transparent';
+              }}
             >
               <ZoomIn size={16} />
             </button>
             <button
               onClick={resetZoom}
-              className="p-2 text-gray-700 hover:bg-white rounded transition-colors"
+              style={styles.zoomButton}
+              onMouseEnter={(e) => e.target.style.background = 'white'}
+              onMouseLeave={(e) => e.target.style.background = 'transparent'}
             >
               <RotateCcw size={16} />
             </button>
@@ -358,79 +661,93 @@ const previousSpread = useCallback(() => {
       </div>
 
       {/* FlipBook Container */}
-      <div className="flex-1 flex items-center justify-center p-8">
-        <div className="relative">
+      <div style={styles.mainContainer}>
+        <div style={styles.bookWrapper}>
           {/* Navigation Buttons */}
           <button
             onClick={previousSpread}
             disabled={currentSpread === 0 || isFlipping}
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 z-30 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full p-3 shadow-lg transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+            style={{
+              ...styles.navButton,
+              ...styles.leftNavButton,
+              opacity: currentSpread === 0 || isFlipping ? 0.5 : 1,
+              cursor: currentSpread === 0 || isFlipping ? 'not-allowed' : 'pointer',
+              pointerEvents: currentSpread === 0 || isFlipping ? 'none' : 'auto'
+            }}
+            onMouseEnter={(e) => {
+              if (currentSpread > 0 && !isFlipping) {
+                e.target.style.background = 'white';
+                e.target.style.transform = 'translateY(-50%) scale(1.1)';
+                e.target.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.2)';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (currentSpread > 0 && !isFlipping) {
+                e.target.style.background = 'rgba(255, 255, 255, 0.95)';
+                e.target.style.transform = 'translateY(-50%) scale(1)';
+                e.target.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.15)';
+              }
+            }}
           >
-            <ChevronLeft size={24} className="text-gray-700" />
+            <ChevronLeft 
+              size={isMounted && window.innerWidth < 768 ? 20 : 28} 
+              style={{ color: '#374151' }} 
+            />
           </button>
 
           <button
             onClick={nextSpread}
             disabled={currentSpread === totalSpreads - 1 || isFlipping}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 z-30 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full p-3 shadow-lg transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+            style={{
+              ...styles.navButton,
+              ...styles.rightNavButton,
+              opacity: currentSpread === totalSpreads - 1 || isFlipping ? 0.5 : 1,
+              cursor: currentSpread === totalSpreads - 1 || isFlipping ? 'not-allowed' : 'pointer',
+              pointerEvents: currentSpread === totalSpreads - 1 || isFlipping ? 'none' : 'auto'
+            }}
+            onMouseEnter={(e) => {
+              if (currentSpread < totalSpreads - 1 && !isFlipping) {
+                e.target.style.background = 'white';
+                e.target.style.transform = 'translateY(-50%) scale(1.1)';
+                e.target.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.2)';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (currentSpread < totalSpreads - 1 && !isFlipping) {
+                e.target.style.background = 'rgba(255, 255, 255, 0.95)';
+                e.target.style.transform = 'translateY(-50%) scale(1)';
+                e.target.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.15)';
+              }
+            }}
           >
-            <ChevronRight size={24} className="text-gray-700" />
+            <ChevronRight 
+              size={isMounted && window.innerWidth < 768 ? 20 : 28} 
+              style={{ color: '#374151' }} 
+            />
           </button>
 
           {/* Book Container */}
-          <div 
-            className="relative"
-            style={{ transform: `scale(${zoom})` }}
-          >
-            <div className="relative flex" style={{ perspective: '2000px' }}>
-              {/* Book Base */}
-              <div className="flex bg-amber-900 rounded-lg shadow-2xl overflow-hidden">
-                {/* Left Page */}
-                <div className="w-80 h-96 md:w-96 md:h-[500px] relative bg-white">
-                  {leftPage && leftPage.content}
-                </div>
-                
-                {/* Book Spine */}
-                <div className="w-4 bg-gradient-to-r from-amber-800 to-amber-700 shadow-inner">
-                  <div className="h-full flex items-center justify-center">
-                    <div className="w-0.5 h-3/4 bg-amber-600 rounded"></div>
-                  </div>
-                </div>
-                
-                {/* Right Page */}
-                <div className="w-80 h-96 md:w-96 md:h-[500px] relative bg-white">
-                  {rightPage && rightPage.content}
-                </div>
+          <div style={{ ...styles.bookContainer, transform: `scale(${zoom})` }}>
+            <div style={styles.book}>
+              {/* Left Page */}
+              <div style={styles.page}>
+                {leftPage && leftPage.content}
               </div>
-
-              {/* Flipping Page Animation */}
-              {isFlipping && (
-                <div 
-                  className="absolute top-0 flex"
-                  style={{
-                    transformStyle: 'preserve-3d',
-                    animation: flipDirection === 'forward' 
-                      ? 'flipForward 0.8s ease-in-out' 
-                      : 'flipBackward 0.8s ease-in-out',
-                    zIndex: 20
-                  }}
-                >
-                  <div className="w-80 h-96 md:w-96 md:h-[500px] bg-white shadow-2xl rounded-l-lg">
-                    {flipDirection === 'forward' && leftPage && leftPage.content}
-                    {flipDirection === 'backward' && flippingLeftPage && flippingLeftPage.content}
-                  </div>
-                  <div className="w-4 bg-gradient-to-r from-amber-800 to-amber-700"></div>
-                  <div className="w-80 h-96 md:w-96 md:h-[500px] bg-white shadow-2xl rounded-r-lg">
-                    {flipDirection === 'forward' && rightPage && rightPage.content}
-                    {flipDirection === 'backward' && flippingRightPage && flippingRightPage.content}
-                  </div>
-                </div>
-              )}
+              
+              {/* Book Spine */}
+              <div style={styles.spine}>
+                <div style={styles.spineDetail}></div>
+              </div>
+              
+              {/* Right Page */}
+              <div style={styles.page}>
+                {rightPage && rightPage.content}
+              </div>
             </div>
           </div>
 
-          {/* Page Indicator */}
-          <div className="flex justify-center mt-8 space-x-2">
+          {/* Page Indicators */}
+          <div style={styles.pageIndicators}>
             {Array.from({ length: totalSpreads }, (_, index) => (
               <button
                 key={index}
@@ -439,11 +756,21 @@ const previousSpread = useCallback(() => {
                     setCurrentSpread(index);
                   }
                 }}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentSpread 
-                    ? 'bg-amber-600 scale-125' 
-                    : 'bg-amber-300 hover:bg-amber-400'
-                }`}
+                style={{
+                  ...styles.indicator,
+                  background: index === currentSpread ? '#d97706' : '#fed7aa',
+                  transform: index === currentSpread ? 'scale(1.25)' : 'scale(1)'
+                }}
+                onMouseEnter={(e) => {
+                  if (index !== currentSpread) {
+                    e.target.style.background = '#f59e0b';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (index !== currentSpread) {
+                    e.target.style.background = '#fed7aa'
+                      }
+                }}
               />
             ))}
           </div>
@@ -451,49 +778,68 @@ const previousSpread = useCallback(() => {
       </div>
 
       {/* Instructions */}
-      <div className="bg-white border-t p-4 text-center">
-        <p className="text-gray-600 text-sm">
-          Use arrow keys, click navigation buttons, or tap page indicators • Experience realistic page flipping
+      <div style={styles.instructions}>
+        <p style={{ color: '#64748b', fontSize: '14px', margin: 0 }}>
+          Use arrow keys, navigation buttons, or drag & drop PDF files • Enhanced with upload/download functionality
         </p>
       </div>
+
+      {/* Drag Over Overlay */}
+      {isDragOver && (
+        <div style={styles.uploadZone}>
+          <div style={styles.uploadModal}>
+            <Upload size={48} style={{ color: '#3b82f6', marginBottom: '16px' }} />
+            <h3 style={{ fontSize: '24px', fontWeight: '600', marginBottom: '8px', color: '#1f2937' }}>
+              Drop PDF Here
+            </h3>
+            <p style={{ color: '#6b7280', margin: 0 }}>
+              Release to upload your PDF file
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* Hidden File Input */}
       <input
         ref={fileInputRef}
         type="file"
         accept=".pdf"
-        onChange={handleFileUpload}
+        onChange={(e) => {
+          if (e.target.files && e.target.files[0]) {
+            handleFileUpload(e.target.files[0]);
+                      }
+        }}
         className="hidden"
       />
 
-      {/* CSS Animations */}
-      <style jsx>{`
-        @keyframes flipForward {
-          0% {
-            transform: rotateY(0deg);
-          }
-          50% {
-            transform: rotateY(-90deg) translateZ(50px);
-          }
-          100% {
-            transform: rotateY(-180deg);
-          }
-        }
+       {/* CSS Animations */}
+       <style jsx>{`
+         @keyframes flipForward {
+           0% {
+             transform: rotateY(0deg);
+           }
+           50% {
+             transform: rotateY(-90deg) translateZ(50px);
+           }
+           100% {
+             transform: rotateY(-180deg);
+           }
+         }
         
-        @keyframes flipBackward {
-          0% {
-            transform: rotateY(0deg);
-          }
-          50% {
-            transform: rotateY(90deg) translateZ(50px);
-          }
-          100% {
-            transform: rotateY(180deg);
-          }
-        }
-      `}</style>
-    </div>
-  );
+         @keyframes flipBackward {
+           0% {
+             transform: rotateY(0deg);
+           }
+           50% {
+             transform: rotateY(90deg) translateZ(50px);
+           }
+           100% {
+             transform: rotateY(180deg);
+           }
+         }
+       `}</style>
+     </div>
+   );
 };
 
 export default FlipBook;

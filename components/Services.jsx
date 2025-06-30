@@ -76,6 +76,47 @@ const ServiceStats = () => (
 
 const Services = () => {
   const [activeTab, setActiveTab] = useState('first')
+  const [wrapperStyle, setWrapperStyle] = useState({});
+  const [innerStyle, setInnerStyle] = useState({
+    padding: '2rem', // fallback/default
+  });
+
+  useEffect(() => {
+    // Apply styles for mobile (Tailwind mobile = base styles)
+    const mobileWrapper = {
+      position: 'relative',
+      width: '100%',
+      maxWidth: '72rem', // max-w-6xl = 72rem
+    };
+
+    const mobileInner = {
+      position: 'relative',
+      padding: '1rem', // p-8 = 2rem
+      backgroundColor: 'white',
+      border: '1px solid rgba(255, 255, 255, 0.1)', // border-white/10
+      borderRadius: '1rem', // rounded-2xl = 1rem
+    };
+
+    setWrapperStyle(mobileWrapper);
+    setInnerStyle(mobileInner);
+
+    // If you want to adjust for larger breakpoints (like lg:p-16), you can add resize logic
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) { // Tailwind lg breakpoint
+        setInnerStyle({
+          ...mobileInner,
+          padding: '4rem', // lg:p-16 = 4rem
+        });
+      } else {
+        setInnerStyle(mobileInner);
+      }
+    };
+
+    handleResize(); // run on mount
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   
   return (
     <div className="relative min-h-screen w-full">
@@ -103,9 +144,9 @@ const Services = () => {
           {/* <Overlay style={{ opacity: 0.9 }} /> */}
 
           {/* Clean main container */}
-          <div className="relative w-full max-w-6xl">
+          <div style={wrapperStyle} className="relative w-full max-w-6xl">
             <div className="relative p-8 lg:p-16 bg-white border border-white/10 rounded-2xl"
-            style={{padding: '2rem'}}
+            style={innerStyle}
             >
               
               <Container className="relative z-10">
@@ -143,26 +184,37 @@ const Services = () => {
                       defaultActiveKey='first'
                       onSelect={(key) => setActiveTab(key)}
                     >
-                      <div className="flex justify-center mb-16"
+                      <div className=" w-full flex justify-center mb-16"
                       style={{marginBottom: '4rem'}}
                       >
                         <Nav
-                          variant='pills'
-                          className='flex flex-wrap gap-3 p-1 bg-white/5 backdrop-blur-xl rounded-xl border border-white/10'
-                          id='pills-tab'
-                       style={{padding: '0.25rem'}}
+                          className="
+                              flex flex-wrap justify-center gap-3 
+                              p-1 
+                            bg-white/10 
+                              backdrop-blur-xl 
+                              rounded-xl 
+                              border border-white/10 
+                              max-w-full
+                              "
+                              id="custom-nav"
+                              style={{ padding: '0.25rem' }}
+                     
                        >
                           <Nav.Item>
-                            <Nav.Link 
-                              eventKey='first'
-                              className={`
-                                px-6 py-3 rounded-lg font-medium text-sm transition-all duration-300 flex items-center gap-2
-                                ${activeTab === 'first' 
-                                  ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/25' 
-                                  : 'text-gray-300 hover:text-white hover:bg-white/10'
-                                }
-                              `}
-                              style={{padding: '1.5rem, o.75rem'}}
+                             <Nav.Link
+        eventKey="first"
+        className={`
+          px-6 py-3 rounded-lg font-medium text-sm transition-all duration-300 flex items-center gap-2
+          ${activeTab === 'first'
+            ? 'bg-orange-600 text-red shadow shadow-orange-600/30'
+            : 'text-white hover:bg-orange-600/20 hover:text-white'
+          }
+        `}
+                              style={{
+                                padding: '1.5rem 0.75rem',
+                                ...(activeTab === 'first' ? { backgroundColor: '#155dfc', color: 'white', } : {backgroundColor: 'gray', color: 'white'})
+                              }}
 
                             >
                               <span>⚡</span>
@@ -180,7 +232,10 @@ const Services = () => {
                                   : 'text-gray-300 hover:text-white hover:bg-white/10'
                                 }
                               `}
-                              style={{padding: '1.5rem, 0.75rem'}}
+                             style={{
+                                padding: '1.5rem 0.75rem',
+                                ...(activeTab === 'second' ? { backgroundColor: '#155dfc', color: 'white', } : {backgroundColor: 'gray', color: 'white'})
+                              }}
                             >
                               <span>🌞</span>
                               Solar Solutions
@@ -197,7 +252,10 @@ const Services = () => {
                                   : 'text-gray-300 hover:text-white hover:bg-white/10'
                                 }
                               `}
-                              style={{padding: '1.5rem 0.75rem'}}
+                             style={{
+                                padding: '1.5rem 0.75rem',
+                                ...(activeTab === 'third' ? { backgroundColor: '#155dfc', color: 'white', } : {backgroundColor: 'gray', color: 'white'})
+                              }}
                             >
                               <span>🐓</span>
                               Premium Poultry

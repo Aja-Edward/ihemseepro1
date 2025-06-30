@@ -227,7 +227,9 @@ const Mycards = () => {
           </div>
 
           {/* Tab Content with fixed spacing */}
-          <div className="min-h-[600px] relative z-10 w-full">
+          <div className="min-h-[600px] relative z-10 w-full"
+        
+          >
             {activeTab === 'first' && (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
                 {projects.map((project, index) => (

@@ -220,3 +220,213 @@ export const services3rdtab = [
     imgUrl: '/assets/images/poultrybirds.jpg',
   },
 ]
+
+
+import Image from 'next/image'
+  export const samplePages =[
+    
+      {
+        id: 0,
+        content: (
+          <div style={{
+            width: '100%',
+            height: '100%',
+            background: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)',
+            padding: '32px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            color: 'white'
+          }}>
+            <div style={{ textAlign: 'center' }}>
+              <h1 style={{ fontSize: '40px', fontWeight: '700', marginBottom: '16px', textShadow: '0 4px 8px rgba(0,0,0,0.3)', marginTop: '1rem' }}>
+               Ihemsadiele & Sons Ltd.
+              </h1>
+              <p style={{ fontSize: '20px', marginBottom: '32px', opacity: '0.9' }}>
+                Interactive Digital Company Profile
+              </p>
+              <div style={{
+                width: '128px',
+                height: '128px',
+                background: 'rgba(255, 255, 255, 0.2)',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: '24px',
+                backdropFilter: 'blur(10px)'
+              }}>
+                <span style={{ fontSize: '48px' }}>
+                  <Image width={200} height={200} src={'/assets/images/ihemseeprologo3.svg'} alt='Ihems company logo'/>
+                </span>
+              </div>
+              <p style={{ fontSize: '16px', opacity: '0.9' }}>
+               No. 38 New Dawn Plaza, Jikwoyi Phase 2 Abuja FCT
+              </p>
+            </div>
+            <span className='text-amber-400 text-xs'
+            style={{padding: '1rem', marginTop: '0.5rem'}}
+            >Powered by Sterling Digitals Ltd.</span>
+          </div>
+        )
+      },
+      {
+        id: 1,
+        content: (
+          <div style={{ width: '100%', height: '100%', background: 'white', padding: '32px' }}>
+            <h1 style={{ fontSize: '36px', fontWeight: '700', color: '#1f2937', marginBottom: '24px' }}>
+              Table of Contents
+            </h1>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', color: '#374151' }}>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                borderBottom: '2px dotted #d1d5db',
+                paddingBottom: '8px'
+              }}>
+                <span style={{ fontSize: '18px' }}>🚀 Executive Summary / Company Overview</span>
+                <span style={{ fontFamily: 'monospace', fontSize: '18px' }}>✓</span>
+              </div>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                borderBottom: '2px dotted #d1d5db',
+                paddingBottom: '8px'
+              }}>
+                <span style={{ fontSize: '18px' }}>📱 Brief description</span>
+                <span style={{ fontFamily: 'monospace', fontSize: '18px' }}>✓</span>
+              </div>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                borderBottom: '2px dotted #d1d5db',
+                paddingBottom: '8px'
+              }}>
+                <span style={{ fontSize: '18px' }}>📄 Vision & Mission</span>
+                <span style={{ fontFamily: 'monospace', fontSize: '18px' }}>✓</span>
+              </div>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                borderBottom: '2px dotted #d1d5db',
+                paddingBottom: '8px'
+              }}>
+                <span style={{ fontSize: '18px' }}>🎨 Core values</span>
+                <span style={{ fontFamily: 'monospace', fontSize: '18px' }}>✓</span>
+              </div>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                borderBottom: '2px dotted #d1d5db',
+                paddingBottom: '8px'
+              }}>
+                <span style={{ fontSize: '18px' }}>🎨 Founding Story/Milestone</span>
+                <span style={{ fontFamily: 'monospace', fontSize: '18px' }}>✓</span>
+              </div>
+            </div>
+            <div style={{ position: 'absolute', bottom: '32px', left: '32px', fontSize: '12px', color: '#6b7280' }}>
+              Page 1
+            </div>
+          </div>
+        )
+      },
+      {
+        id: 2,
+        content: (
+          <div style={{
+            width: '100%',
+            height: '100%',
+            background: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
+            padding: '32px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            color: 'white'
+          }}>
+            <div style={{ textAlign: 'center' }}>
+              <h2 style={{ fontSize: '36px', fontWeight: '600', marginBottom: '16px' }}>
+                Navigation Test
+              </h2>
+              <p style={{ fontSize: '18px', marginBottom: '32px', opacity: '0.9' }}>
+                Click the arrow buttons to navigate!
+              </p>
+              <div style={{
+                display: 'flex',
+                gap: '20px',
+                justifyContent: 'center',
+                marginBottom: '24px'
+              }}>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{
+                    width: '64px',
+                    height: '64px',
+                    background: 'rgba(255, 255, 255, 0.2)',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '8px'
+                  }}>
+                    <span style={{ fontSize: '24px' }}>⬅️</span>
+                  </div>
+                  <p style={{ fontSize: '12px' }}>Previous</p>
+                </div>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{
+                    width: '64px',
+                    height: '64px',
+                    background: 'rgba(255, 255, 255, 0.2)',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '8px'
+                  }}>
+                    <span style={{ fontSize: '24px' }}>➡️</span>
+                  </div>
+                  <p style={{ fontSize: '12px' }}>Next</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+      },
+      {
+        id: 3,
+        content: (
+          <div style={{ width: '100%', height: '100%', background: 'white', padding: '32px' }}>
+            <h2 style={{ fontSize: '28px', fontWeight: '600', color: '#7c2d12', marginBottom: '24px' }}>
+              Page 2 Content
+            </h2>
+            <div style={{ color: '#374151', lineHeight: '1.6' }}>
+              <p style={{ marginBottom: '16px', fontSize: '16px' }}>
+                This is the second page of our FlipBook. The navigation should be working perfectly now!
+              </p>
+              <div style={{
+                background: '#fef3c7',
+                border: '1px solid #f59e0b',
+                borderRadius: '8px',
+                padding: '16px',
+                marginBottom: '16px'
+              }}>
+                <p style={{ color: '#92400e', fontWeight: '500', margin: 0 }}>
+                  ✨ Navigation is now fully functional with improved button responsiveness
+                </p>
+              </div>
+              <ul style={{ paddingLeft: '20px', color: '#6b7280' }}>
+                <li style={{ marginBottom: '8px' }}>Faster flip animations</li>
+                <li style={{ marginBottom: '8px' }}>Better button hover effects</li>
+                <li style={{ marginBottom: '8px' }}>Improved accessibility</li>
+                <li style={{ marginBottom: '8px' }}>Mobile-friendly navigation</li>
+              </ul>
+            </div>
+            <div style={{ position: 'absolute', bottom: '32px', left: '32px', fontSize: '12px', color: '#6b7280' }}>
+              Page 2
+            </div>
+            <footer className='text-blue-600'> powered by sterling digitals ltd.</footer>
+          </div>
+        )
+      }
+    ]

@@ -1,6 +1,5 @@
 import { transporter, mailOptions } from '@/app/config/nodemailer'
 
-
 export const GET = async (req, res) => {
   return new Response('Hi, my name is Aja Edward')
 }
@@ -84,7 +83,7 @@ const generateEmailContent = (data) => {
             display: flex;
             justify-content: center;
             align-items: center;
-            flex-direction: center
+            flex-direction: center;
             border-radius: 20px;
         }
         .header img {
@@ -113,10 +112,8 @@ const generateEmailContent = (data) => {
 </head>
 <body>
     <div class="container">
-        <div class="header" style="background-image: url("/aboutus.jpg" alt="Ihems services"),
-         background-position: center, background-repeat: no-repeat, background-size: cover">
-         
-         <div className="email_header">
+        <div class="header" style="background-image: url('/aboutus.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover;">
+         <div class="email_header">
          <h1>Ihemsi Adiele and sons</h1>
          <p>We are always ready to provide you with best service</p>
          </div>
@@ -127,7 +124,7 @@ const generateEmailContent = (data) => {
                   ${htmlData}
             </div>
         </div>
-        <div class="footer" style="background-color: #f9004d, padding: 15px 20px">
+        <div class="footer" style="background-color: #f9004d; padding: 15px 20px;">
             <p>
                 If you have any questions, contact us at
                 <a href="mailto:ihemseepro@gmail.com">ihemseepro@gmail.com</a>
@@ -141,22 +138,51 @@ const generateEmailContent = (data) => {
 }
 
 export const POST = async (req) => {
-  if (req.method === 'POST') {
+  try {
     const body = await req.json()
+    
+    // Validate required fields
     if (!body.firstName || !body.lastName || !body.email || !body.subject) {
-      return new Response('Bad Request', { status: 400 })
+      return new Response(
+        JSON.stringify({ error: 'Missing required fields' }), 
+        { 
+          status: 400,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      )
     }
-    try {
-      await transporter.sendMail({
-        ...mailOptions,
-        ...generateEmailContent(body),
-        subject: body.subject,
-      })
-      console.log('This is the body', body)
-      return new Response({ success: true }, { status: 200 })
-    } catch (error) {
-      console.log(error)
-      return new Response({ message: error.message }, { status: 400 })
-    }
+
+    // Send email
+    await transporter.sendMail({
+      ...mailOptions,
+      ...generateEmailContent(body),
+      subject: body.subject,
+    })
+
+    console.log('Email sent successfully for:', body)
+    
+    return new Response(
+      JSON.stringify({ success: true, message: 'Email sent successfully' }), 
+      { 
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    )
+  } catch (error) {
+    console.error('Email sending error:', error)
+    
+    return new Response(
+      JSON.stringify({ error: 'Failed to send email', details: error.message }), 
+      { 
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    )
   }
 }

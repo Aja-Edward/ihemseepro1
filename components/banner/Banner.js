@@ -90,7 +90,9 @@ const Banner = ({ imagesource, title, content }) => {
   const normalizedImageSrc = normalizeImageSrc(imagesource)
   
   return (
-    <div className="relative min-h-[50vh] w-full overflow-hidden">
+    <div className="relative min-h-[50vh] w-full overflow-hidden"
+    style={{paddingTop: '4rem'}}
+    >
       {/* Dark gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800">
         {/* Pattern overlay */}
