@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { ChevronRight, Zap, Lightbulb, Settings, Sparkles } from 'lucide-react';
 import Image from 'next/image'
 import Link from 'next/link'
+import {newProject} from './data'
+import {commercialProjects} from './data'
 
 // Mock data - replace with your actual projects data
 const projects = [
@@ -248,45 +250,39 @@ const Mycards = () => {
             )}
 
             {activeTab === 'second' && (
-              <div className="max-w-5xl mx-auto text-center animate-fade-in px-4">
-                <div className="bg-gradient-to-br from-blue-50/80 to-indigo-50/80 backdrop-blur-xl rounded-3xl p-12 md:p-16 border border-blue-200/50 shadow-2xl relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/30 to-transparent"></div>
-                  <div className="relative z-10">
-                    <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-10 shadow-2xl transform rotate-3 hover:rotate-6 transition-transform duration-300">
-                      <Lightbulb className="w-12 h-12 text-white" />
-                    </div>
-                    <h3 className="text-4xl font-black text-black mb-8">Residential Solutions</h3>
-                    <p className="text-gray-600 text-xl leading-relaxed mb-12 max-w-3xl mx-auto">
-                      Explore our portfolio of meticulously executed electrical and electronic ventures, 
-                      showcasing our commitment to precision, reliability, and customer-centric design 
-                      for an enhanced living and working environment.
-                    </p>
-                    <Link href={'/profile'}>
-                      <Button text="View Projects" />
-                    </Link>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+                {newProject.map((ourproject, index) => (
+
+                  <div key={ourproject.id}
+                  className='animate-slide-up'
+                  style={{
+                     animationDelay: `${index * 0.2}s`,
+                      animationFillMode: 'forwards'
+                  }}
+                  >
+                    <ProjectCard {... ourproject}/>
                   </div>
-                </div>
-              </div>
+                ))}
+                
+                </div>  
             )}
 
             {activeTab === 'third' && (
-              <div className="max-w-5xl mx-auto text-center animate-fade-in px-4">
-                <div className="bg-gradient-to-br from-indigo-50/80 to-purple-50/80 backdrop-blur-xl rounded-3xl p-12 md:p-16 border border-indigo-200/50 shadow-2xl relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/30 to-transparent"></div>
-                  <div className="relative z-10">
-                    <div className="w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-10 shadow-2xl transform -rotate-3 hover:-rotate-6 transition-transform duration-300">
-                      <Zap className="w-12 h-12 text-white" />
-                    </div>
-                    <h3 className="text-4xl font-black text-gray-900 mb-8">Commercial Excellence</h3>
-                    <p className="text-gray-600 text-xl leading-relaxed mb-12 max-w-3xl mx-auto">
-                      Embark on a journey through our diverse range of successful electrical and 
-                      electronic undertakings, highlighting our dedication to excellence, efficiency, 
-                      and sustainable solutions for seamless technology integration.
-                    </p>
-                    <Button text="Learn More" />
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
+                {commercialProjects.map((commercialproject, index) => (
+
+                  <div key={commercialproject.id}
+                  className='animate-slide-up'
+                  style={{
+                     animationDelay: `${index * 0.2}s`,
+                      animationFillMode: 'forwards'
+                  }}
+                  >
+                    <ProjectCard {... commercialproject}/>
                   </div>
-                </div>
-              </div>
+                ))}
+                
+                </div>  
             )}
           </div>
         </div>

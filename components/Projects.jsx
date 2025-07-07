@@ -95,7 +95,7 @@ const Projects = () => {
         <ProjectSlider style={{ zIndex: 3 }} />
         <Overlay style={{ zIndex: 2 }} />
         <ProjectBackground videoSource={'assets/video/Projectpage.mp4'} />
-        <projectSlider />
+        {/* <ProjectSlider /> */}
         {/* <SpinningLogo /> */}
       </div>
       <Mycards />

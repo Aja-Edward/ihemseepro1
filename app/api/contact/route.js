@@ -1,7 +1,7 @@
 import { transporter, mailOptions } from '@/app/config/nodemailer'
 
 export const GET = async (req, res) => {
-  return new Response('Hi, my name is Aja Edward')
+  return new Response('Hi, Ihemsadiele, how may I help you?')
 }
 
 const CONTACT_MESSAGE_FIELD = {
@@ -114,8 +114,8 @@ const generateEmailContent = (data) => {
     <div class="container">
         <div class="header" style="background-image: url('/aboutus.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover;">
          <div class="email_header">
-         <h1>Ihemsi Adiele and sons</h1>
-         <p>We are always ready to provide you with best service</p>
+         <h1>Ihemsadiele and Sons Ltd.</h1>
+         <p>Thank you for contacting us.</p>
          </div>
         </div>
         <div class="content">

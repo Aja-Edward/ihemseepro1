@@ -1,10 +1,12 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+  import Image from 'next/image'
 
 const Footer = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isVisible, setIsVisible] = useState(false)
+
 
   useEffect(() => {
     setIsVisible(true)
@@ -129,6 +131,7 @@ const Footer = () => {
                     </svg>
                   </div>
                   <div>
+                    <Image width={200} height={200} alt='Ihemsadiele logo' src={'/assets/images/ihemseeprologo3.svg'}/>
                     <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
                       Ihemsadiele & Sons
                     </h3>

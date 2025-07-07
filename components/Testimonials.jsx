@@ -3,6 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Star, Play, User } from 'lucide-react';
+import Link from 'next/link'
 
 const TestimonialSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -541,7 +542,7 @@ const TestimonialSection = () => {
               alignItems: 'center'
             }}
           >
-            <button 
+            <Link href={'/contact'} 
               style={{
                 backgroundColor: '#2563eb',
                 color: 'white',
@@ -557,8 +558,8 @@ const TestimonialSection = () => {
               onMouseEnter={(e) => e.target.style.backgroundColor = '#1d4ed8'}
               onMouseLeave={(e) => e.target.style.backgroundColor = '#2563eb'}
             >
-              Start Free Trial
-            </button>
+             Get instant quote
+            </Link>
             <button 
               style={{
                 backgroundColor: 'transparent',

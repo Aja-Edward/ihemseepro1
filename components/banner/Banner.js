@@ -3,6 +3,7 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 // Floating particles for light theme
 const LightParticles = () => {
@@ -172,7 +173,8 @@ const Banner = ({ imagesource, title, content }) => {
               
               {/* Button shine effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-              
+             <Link href={'/contact'}>
+             
               <span className="relative z-10 flex items-center gap-2 rounded-2xl"
              
               >
@@ -181,6 +183,7 @@ const Banner = ({ imagesource, title, content }) => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </span>
+              </Link> 
             </button>
           </div>
         </div>

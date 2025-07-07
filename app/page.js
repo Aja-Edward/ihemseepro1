@@ -275,7 +275,7 @@ export default function HomePage() {
 
   const getImageStyles = () => ({
     objectFit: 'contain',
-    width: windowSize.isMobile ? '120px' : windowSize.isTablet ? '160px' : '200px',
+    width: windowSize.isMobile ? '120px' : windowSize.isTablet ? '160px' : '400px',
     height: 'auto'
   })
 
@@ -490,19 +490,19 @@ export default function HomePage() {
                 }}
               >
                 <div
-                  className="w-80 h-80 lg:w-96 lg:h-96 bg-gradient-to-br from-yellow-400/20 to-cyan-400/20 rounded-full flex items-center justify-center animate-updown filter drop-shadow-[0_0_30px_rgba(6,182,212,0.6)]"
+                  className="w-90 h-90 lg:w-96 lg:h-96 bg-gradient-to-br from-yellow-400/20 to-cyan-400/20 rounded-full flex items-center justify-center animate-updown filter drop-shadow-[0_0_30px_rgba(6,182,212,0.6)]"
                   style={getBulbContainerStyles()}
                 >
                 
                  <>
       {!hasError ? (
         <Image
-          src="/assets/images/bluebulb2.png"
-          alt="bluebulb"
-          width={windowSize.isMobile ? 400 : 800}
-          height={windowSize.isMobile ? 400 : 800}
+          src="/assets/images/ihemseeprologo3.svg"
+          alt="logo"
+          width={windowSize.isMobile ? 400 : 1000}
+          height={windowSize.isMobile ? 400 : 1000}
           onError={() => setHasError(true)}
-          className="object-contain"
+          className="object-cover"
           style={getImageStyles()}
         />
       ) : (

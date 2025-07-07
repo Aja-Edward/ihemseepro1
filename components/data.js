@@ -430,3 +430,56 @@ import Image from 'next/image'
         )
       }
     ]
+
+
+
+    export const newProject = [
+    {
+    id: 1,
+    title: "Building project",
+    description: "A look at our newly completed building projects",
+    image: "/assets/images/ourprojects/2.jpg",
+    category: "Commercial"
+  },
+  {
+    id: 2,
+    title: "Classroom Project completed",
+    description: "Modern classroom building completed by Ihemsadiele and sons ltd.",
+    image: "/assets/images/ourprojects/3.jpg",
+    category: "Commercial"
+  },
+  {
+    id: 3,
+    title: "Duplex completed",
+    description: "A look at our renovated duplex",
+    image: "/assets/images/ourprojects/6.jpg",
+    category: "Residential"
+  }
+];
+
+
+
+export const commercialProjects = [
+    {
+    id: 1,
+    title: "AC Installation",
+    description: "Installing Air Conditional System with advanced automated system",
+    image: "/assets/images/ourprojects/4.jpg",
+    category: "Commercial"
+  },
+  {
+    id: 2,
+    title: "Electrical Power House",
+    description: "Reinstallation and upgrade of commercial electrical powerhouse at Kado Estate",
+    image: "/assets/images/ourprojects/7.jpg",
+    category: "Commercial"
+  },
+  {
+    id: 3,
+    title: "Government House Project",
+    description: "Took a leap in handling the entire complex building for Niger State Government House",
+    image: "/assets/images/ourprojects/12.jpg",
+    category: "Government Project"
+  }
+];
+   
