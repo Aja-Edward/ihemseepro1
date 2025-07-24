@@ -1,18 +1,4 @@
-// const { withPlausibleProxy } = require('next-plausible')
-
-// module.exports = withPlausibleProxy()({
-//   webpack: (config, { isServer }) => {
-//     if (!isServer) {
-//       config.resolve.fallback = {
-//         fs: false,
-//         module: false,
-//       }
-//     }
-//     return config
-//   },
-// })
-
-const { withPlausibleProxy } = require('next-plausible')
+const { withPlausibleProxy } = require('next-plausible');
 
 module.exports = withPlausibleProxy()({
   webpack: (config, { isServer }) => {
@@ -20,24 +6,9 @@ module.exports = withPlausibleProxy()({
       config.resolve.fallback = {
         fs: false,
         module: false,
-      }
+      };
     }
-    return config
+    return config;
   },
-  turbopack: {
-    rules: {
-      '*.css': {
-        loaders: [{
-          loader: 'postcss-loader',
-          options: {
-            postcssOptions: {
-              plugins: {
-                "@tailwindcss/postcss": {},
-              },
-            },
-          },
-        }],
-      },
-    },
-  },
-})
+  transpilePackages: ['pdfjs-dist'], // Use Next.js 13+ built-in transpilation instead of next-transpile-modules
+});

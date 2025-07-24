@@ -17,15 +17,20 @@ WORKDIR /app
 
 # Add a non-root user
 RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 nextjs
-USER nextjs
 
 ENV NODE_ENV=production
 
 # Copy built artifacts
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next ./.next
+
+# Fix permissions for Next.js image cache (before switching user)
+RUN mkdir -p .next/cache/images && chown -R nextjs:nodejs .next/cache
+
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
+
+USER nextjs
 
 EXPOSE 3000
 

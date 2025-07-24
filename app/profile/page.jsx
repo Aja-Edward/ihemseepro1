@@ -1,13 +1,10 @@
-import React from 'react'
-import CompanyProfile from '@components/CompanyProfile'
+import React from 'react';
+import ClientProfileWrapper from './ClientProfileWrapper';
 
-const page = () => {
+export default function Page() {
   return (
     <div>
-<CompanyProfile/>
-
+      <ClientProfileWrapper />
     </div>
-  )
+  );
 }
-
-export default page
