@@ -35,6 +35,7 @@ function Page({ content, isLeft, isFlipping, flipProgress, onDragStart, onDrag, 
     if (onDragEnd) onDragEnd(e);
   };
 
+  // Remove isMobile and pageStyle logic, just use style as passed
   return (
     <div
       ref={pageRef}
@@ -49,7 +50,7 @@ function Page({ content, isLeft, isFlipping, flipProgress, onDragStart, onDrag, 
         cursor: showCorner ? 'grab' : 'default',
         background: '#fff',
         overflow: 'hidden',
-        touchAction: 'pan-y', // allow horizontal drag
+        touchAction: 'pan-y',
       }}
       onMouseDown={e => onDragStart && onDragStart(isLeft ? 'left' : 'right', e)}
       onMouseMove={onDrag}
@@ -60,7 +61,20 @@ function Page({ content, isLeft, isFlipping, flipProgress, onDragStart, onDrag, 
       onTouchEnd={handleTouchEnd}
     >
       {/* Page content */}
-      <div style={{ width: '100%', height: '100%', pointerEvents: 'none', position: 'relative', zIndex: 1 }}>{content}</div>
+      <div style={{ width: '100%', height: '100%', pointerEvents: 'none', position: 'relative', zIndex: 1, overflow: 'hidden' }}>
+        {content && React.isValidElement(content) && content.type === 'img'
+          ? React.cloneElement(content, {
+              style: {
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain',
+                background: '#fff',
+                display: 'block',
+                ...content.props.style,
+              },
+            })
+          : content}
+      </div>
       {/* Curl gradient overlay */}
       <div style={{
         position: 'absolute',
@@ -197,7 +211,7 @@ const FlipBook = () => {
       toolbar: {
         background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
         boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-        padding: isMobile ? '8px' : '20px',
+        padding: '20px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -207,12 +221,12 @@ const FlipBook = () => {
       toolbarTitle: {
         display: 'flex',
         alignItems: 'center',
-        gap: isMobile ? '6px' : '16px',
+        gap: '16px',
         flexWrap: 'wrap'
       },
       title: {
         color: '#1e293b',
-        fontSize: isMobile ? '16px' : '24px',
+        fontSize: '24px',
         fontWeight: '700',
         background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
         WebkitBackgroundClip: 'text',
@@ -221,26 +235,26 @@ const FlipBook = () => {
       },
       spreadInfo: {
         color: '#64748b',
-        fontSize: isMobile ? '11px' : '14px',
+        fontSize: '14px',
         fontWeight: '500'
       },
       controls: {
         display: 'flex',
         alignItems: 'center',
-        gap: isMobile ? '6px' : '12px',
+        gap: '12px',
         flexWrap: 'wrap'
       },
       uploadButton: {
         background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
         color: 'white',
-        padding: isMobile ? '6px 10px' : '12px 20px',
+        padding: '12px 20px',
         borderRadius: '12px',
         display: 'flex',
         alignItems: 'center',
         gap: '8px',
         border: 'none',
         cursor: 'pointer',
-        fontSize: isMobile ? '11px' : '14px',
+        fontSize: '14px',
         fontWeight: '600',
         transition: 'all 0.3s ease',
         boxShadow: '0 4px 15px 0 rgba(59, 130, 246, 0.35)'
@@ -254,7 +268,7 @@ const FlipBook = () => {
         padding: '4px'
       },
       zoomButton: {
-        padding: isMobile ? '6px' : '8px',
+        padding: '8px',
         color: '#374151',
         background: 'transparent',
         border: 'none',
@@ -267,7 +281,7 @@ const FlipBook = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: isMobile ? '6px' : '32px',
+        padding: '32px',
         position: 'relative'
       },
       bookWrapper: {
@@ -281,7 +295,7 @@ const FlipBook = () => {
         zIndex: '30',
         background: 'rgba(255, 255, 255, 0.95)',
         borderRadius: '50%',
-        padding: isMobile ? '8px' : '16px',
+        padding: '16px',
         border: 'none',
         cursor: 'pointer',
         boxShadow: '0 10px 25px rgba(0, 0, 0, 0.15)',
@@ -290,14 +304,14 @@ const FlipBook = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        width: isMobile ? '36px' : '56px',
-        height: isMobile ? '36px' : '56px'
+        width: '56px',
+        height: '56px'
       },
       leftNavButton: {
-        left: isMobile ? '2px' : '16px'
+        left: '16px'
       },
       rightNavButton: {
-        right: isMobile ? '2px' : '16px'
+        right: '16px'
       },
       bookContainer: {
         perspective: '2000px',
@@ -309,25 +323,17 @@ const FlipBook = () => {
         borderRadius: '12px',
         overflow: 'hidden',
         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-        border: '2px solid #a16207',
-        flexDirection: isMobile ? 'column' : 'row',
-        width: isMobile ? '95vw' : undefined,
-        maxWidth: isMobile ? '98vw' : undefined,
-        minWidth: isMobile ? '0' : undefined,
-        minHeight: isMobile ? '0' : undefined,
+        border: '2px solid #a16207'
       },
       page: {
-        width: isMobile ? '90vw' : '384px',
-        height: isMobile ? '60vw' : '500px',
-        maxWidth: isMobile ? '95vw' : undefined,
-        maxHeight: isMobile ? '70vw' : undefined,
+        width: '384px',
+        height: '500px',
         position: 'relative',
         background: '#ffffff',
-        overflow: 'hidden',
-        margin: isMobile ? '0 auto' : undefined,
+        overflow: 'hidden'
       },
       spine: {
-        width: isMobile ? '8px' : '20px',
+        width: '20px',
         background: 'linear-gradient(90deg, #b45309 0%, #fbbf24 100%)',
         boxShadow: 'inset 0 0 18px rgba(0,0,0,0.4), 0 0 12px 2px #fbbf24',
         display: 'flex',
@@ -335,7 +341,7 @@ const FlipBook = () => {
         justifyContent: 'center',
       },
       spineDetail: {
-        width: isMobile ? '1px' : '2px',
+        width: '2px',
         height: '75%',
         background: '#a16207',
         borderRadius: '1px'
@@ -343,12 +349,12 @@ const FlipBook = () => {
       pageIndicators: {
         display: 'flex',
         justifyContent: 'center',
-        marginTop: isMobile ? '12px' : '32px',
-        gap: isMobile ? '4px' : '8px'
+        marginTop: '32px',
+        gap: '8px'
       },
       indicator: {
-        width: isMobile ? '8px' : '12px',
-        height: isMobile ? '8px' : '12px',
+        width: '12px',
+        height: '12px',
         borderRadius: '50%',
         border: 'none',
         cursor: 'pointer',
@@ -357,7 +363,7 @@ const FlipBook = () => {
       instructions: {
         background: 'rgba(255, 255, 255, 0.9)',
         borderTop: '1px solid #e2e8f0',
-        padding: isMobile ? '8px' : '16px',
+        padding: '16px',
         textAlign: 'center',
         backdropFilter: 'blur(10px)'
       },
@@ -475,7 +481,7 @@ const FlipBook = () => {
           <img
             src={imgUrl}
             alt={`PDF page ${i}`}
-            style={{ width: '100%', height: '100%', objectFit: 'contain', background: 'white' }}
+            style={{ width: '100%', height: '100%', objectFit: 'contain', background: '#fff', display: 'block' }}
           />
         )
       });
@@ -483,29 +489,7 @@ const FlipBook = () => {
     setRenderedPages(pageImages);
     setPages(pageImages);
     setCurrentSpread(0);
-    setIsUploading(false);
   }, []);
-
-  // In handleFileUpload, re-enable PDF rendering
-  // const handleFileUpload = async (file) => {
-  //   console.log('Uploading', file); // Debug: confirm upload handler is called
-  //   if (!file || file.type !== 'application/pdf') {
-  //     alert('Please select a valid PDF file');
-  //     return;
-  //   }
-  //   setIsUploading(true);
-  //   try {
-  //     await renderPdfPages(file);
-  //     setPdfFile(file);
-  //     // Persist PDF in localStorage as base64
-  //     const base64 = await fileToBase64(file);
-  //     localStorage.setItem('flipbook-pdf', base64);
-  //   } catch (error) {
-  //     console.error('Error processing file:', error);
-  //     alert('Error processing the PDF file');
-  //     setIsUploading(false);
-  //   }
-  // };
 
   // In FlipBook, on mount, fetch and render the static PDF
   useEffect(() => {
@@ -568,27 +552,20 @@ const FlipBook = () => {
   };
 
   // Download functionality
-  const handleDownload = () => {
-    if (pdfDoc) {
-      const url = URL.createObjectURL(new Blob([pdfDoc.data.arrayBuffer()], { type: 'application/pdf' }));
+  const handleDownload = async () => {
+    const url = '/assets/pdfs/1...pdf';
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
       const a = document.createElement('a');
-      a.href = url;
+      a.href = URL.createObjectURL(blob);
       a.download = 'company-profile.pdf';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    } else {
-      const content = `FlipBook Pro - Demo Content\n\nThis is a sample document created by FlipBook Pro.\n\nFeatures:\n- Interactive page flipping\n- PDF upload support\n- Mobile responsive design\n- Zoom controls\n- Download functionality`;
-      const blob = new Blob([content], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'flipbook-demo.txt';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    } catch (err) {
+      alert('Failed to download PDF.');
     }
   };
 
@@ -647,25 +624,24 @@ const FlipBook = () => {
           </span>
         </div>
         <div style={styles.controls}>
-          <button
-            onClick={handleDownload}
+          <a
+            href="/assets/pdfs/1...pdf"
+            download="company-profile.pdf"
             style={{
               ...styles.uploadButton,
               background: 'linear-gradient(135deg, #059669 0%, #047857 100%)',
-              boxShadow: '0 4px 15px 0 rgba(5, 150, 105, 0.35)'
+              boxShadow: '0 4px 15px 0 rgba(5, 150, 105, 0.35)',
+              textDecoration: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
             }}
-            onMouseEnter={(e) => {
-              e.target.style.transform = 'translateY(-2px)';
-              e.target.style.boxShadow = '0 8px 25px 0 rgba(5, 150, 105, 0.45)';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = 'translateY(0)';
-              e.target.style.boxShadow = '0 4px 15px 0 rgba(5, 150, 105, 0.35)';
-            }}
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <Download size={16} />
             <span>Download</span>
-          </button>
+          </a>
           <div style={styles.zoomControls}>
             <button
               onClick={zoomOut}

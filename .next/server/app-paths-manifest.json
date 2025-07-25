@@ -2,10 +2,10 @@
   "/_not-found/page": "app/_not-found/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
   "/api/contact/route": "app/api/contact/route.js",
-  "/about/page": "app/about/page.js",
-  "/profile/page": "app/profile/page.js",
   "/contact/page": "app/contact/page.js",
+  "/about/page": "app/about/page.js",
+  "/projects/page": "app/projects/page.js",
   "/page": "app/page.js",
-  "/servicespage/page": "app/servicespage/page.js",
-  "/projects/page": "app/projects/page.js"
+  "/profile/page": "app/profile/page.js",
+  "/servicespage/page": "app/servicespage/page.js"
 }
